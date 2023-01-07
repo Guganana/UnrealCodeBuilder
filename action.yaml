@@ -10,43 +10,44 @@ inputs:
     type: string
     
 # Steps represent a sequence of tasks that will be executed as part of the job
-steps:
 
-  - uses: actions/checkout@v3
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v3
 
-  - name: debug
-    run: |
-      echo ${{ github.event.inputs.enginePath }}
-      echo ${{ github.event.inputs.pluginPath }}
-      dir
+    - name: debug
+      run: |
+        echo ${{ inputs.enginePath }}
+        echo ${{ inputs.pluginPath }}
+        dir
 
+    - name: download and extract-7z-action
+      run: |
+        $TargetEnginePath = "${{ inputs.enginePath }}";
+        if( TargetEnginePath.StartsWith("http") )
+        {
+           Invoke-Webrequest -URI $TargetEnginePath -OutFile "./DownloadedEngine.7z"
+           $TargetEnginePath = "./DownloadedEngine.7z"
+        }
+        ./7za.exe x $TargetEnginePath -oEngine
 
-  - name: download and extract-7z-action
-    run: |
-      $TargetEnginePath = "${{ github.event.inputs.enginePath }}";
-      if( TargetEnginePath.StartsWith("http") )
-      {
-         Invoke-Webrequest -URI $TargetEnginePath -OutFile "./DownloadedEngine.7z"
-         $TargetEnginePath = "./DownloadedEngine.7z"
-      }
-      ./7za.exe x $TargetEnginePath -oEngine
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
 
-  - uses: actions/setup-python@v4
-    with:
-      python-version: '3.x'
+    - name: install ue4cli
+      run: pip install ue4cli
 
-  - name: install ue4cli
-    run: pip install ue4cli
+    - name: Set root ue4cli
+      run: ue4 setroot "./Engine"
 
-  - name: Set root ue4cli
-    run: ue4 setroot "./Engine"
+    - name: Create Plugins folder and move plugins
+      run: |
+        New-Item "./Plugins" -itemType Directory
+        Copy-Item -Path "{{ inputs.pluginPath }}/*" -Destination "./Plugins/Plugin" -Recurse -Force
+        cd Plugins/Plugin
+        dir
 
-  - name: Create Plugins folder and move plugins
-    run: |
-      New-Item "./Plugins" -itemType Directory
-      Copy-Item -Path "{{ inputs.pluginPath }}/*" -Destination "./Plugins/Plugin" -Recurse -Force
-      cd Plugins/Plugin
-      dir
-
-  - name: Run ue4cli
-    run: ue4 build # -NoPCH -NoSharedPCH -DisableUnity
+    - name: Run ue4cli
+      run: ue4 build # -NoPCH -NoSharedPCH -DisableUnity
