@@ -55,4 +55,5 @@ runs:
         dir
 
     - name: Run ue4cli
+      shell: pwsh
       run: ue4 build # -NoPCH -NoSharedPCH -DisableUnity
