@@ -23,6 +23,14 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+    
+      - uses: actions/checkout@v3
+      
+      - name: debug
+        run: |
+          echo "enginePath: {{ github.event.inputs.enginePath }}"
+          echo "pluginPath: {{ github.event.inputs.pluginPath }}"
+          dir
               
       - name: extract-7z-action
         run: ./7za.exe x ${{ github.event.inputs.enginePath }} -oEngine
