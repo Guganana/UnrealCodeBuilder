@@ -51,7 +51,7 @@ runs:
       shell: pwsh
       run: |
         New-Item "./Plugins" -itemType Directory
-        Copy-Item -Path "{{ inputs.pluginPath }}/*" -Destination "./Plugins/Plugin" -Recurse -Force
+        Copy-Item -Path "${{ inputs.pluginPath }}/*" -Destination "./Plugins/Plugin" -Recurse -Force
         cd Plugins/Plugin
         dir
 
