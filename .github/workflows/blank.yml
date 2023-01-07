@@ -1,0 +1,49 @@
+name: UnrealCodeBuild
+
+# Controls when the workflow will run
+on:
+  workflow_call:
+    inputs:
+      enginePath:
+        required: true
+        type: string
+      pluginPath:
+        required: true
+        type: string
+        
+  # Allows you to run this workflow manually from the Actions tab
+ # workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+              
+      - name: extract-7z-action
+        run: ./7za.exe x ${{ github.event.inputs.enginePath }} -oEngine
+-7z -oEngine
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      
+      - name: install ue4cli
+        run: pip install ue4cli
+        
+      - name: Set root ue4cli
+        run: ue4 setroot "./Engine"
+        
+      - name: Create Plugins folder and move plugins
+        run: |
+          New-Item "./Plugins" -itemType Directory
+          Copy-Item -Path "{{ github.event.inputs.pluginPath }}/*" -Destination "./Plugins/Plugin" -Recurse -Force
+          cd Plugins/Plugin
+          dir
+
+      - name: Run ue4cli
+        run: ue4 build # -NoPCH -NoSharedPCH -DisableUnity
