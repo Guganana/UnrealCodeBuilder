@@ -33,6 +33,7 @@ runs:
         $TargetEnginePath = "${{ github.action_path }}/DownloadedEngine.7z"
         Invoke-Webrequest -URI ${{ inputs.pluginPath }} -OutFile $TargetEnginePath
         ${{ github.action_path }}/7za.exe x $TargetEnginePath -o${{ github.action_path }}/Engine
+        dir ${{ github.action_path }}/Engine
         
     - name: extract-7z-action
       shell: pwsh
