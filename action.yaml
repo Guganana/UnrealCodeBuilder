@@ -32,7 +32,7 @@ runs:
       if: ${{ inputs.enginePathIsDownload }}
       run: |
         $TargetEnginePath = "${{ github.action_path }}/DownloadedEngine.7z"
-        Invoke-Webrequest -URI ${{ inputs.pluginPath }} -OutFile $TargetEnginePath
+        Invoke-Webrequest -URI ${{ inputs.enginePath }} -OutFile $TargetEnginePath
         ${{ github.action_path }}/7za.exe x $TargetEnginePath -o${{ github.action_path }}/Engine
         dir ${{ github.action_path }}/Engine
         
