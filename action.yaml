@@ -17,12 +17,14 @@ runs:
     - uses: actions/checkout@v3
 
     - name: debug
+      shell: pwsh
       run: |
         echo ${{ inputs.enginePath }}
         echo ${{ inputs.pluginPath }}
         dir
 
     - name: download and extract-7z-action
+      shell: pwsh
       run: |
         $TargetEnginePath = "${{ inputs.enginePath }}";
         if( TargetEnginePath.StartsWith("http") )
@@ -37,12 +39,15 @@ runs:
         python-version: '3.x'
 
     - name: install ue4cli
+      shell: pwsh
       run: pip install ue4cli
 
     - name: Set root ue4cli
+      shell: pwsh
       run: ue4 setroot "./Engine"
 
     - name: Create Plugins folder and move plugins
+      shell: pwsh
       run: |
         New-Item "./Plugins" -itemType Directory
         Copy-Item -Path "{{ inputs.pluginPath }}/*" -Destination "./Plugins/Plugin" -Recurse -Force
