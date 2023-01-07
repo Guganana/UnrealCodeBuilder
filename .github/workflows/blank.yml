@@ -28,14 +28,21 @@ jobs:
       
       - name: debug
         run: |
-          echo "enginePath: {{ github.event.inputs.enginePath }}"
-          echo "pluginPath: {{ github.event.inputs.pluginPath }}"
+          echo "enginePath: ${{ github.event.inputs.enginePath }}"
+          echo "pluginPath: ${{ github.event.inputs.pluginPath }}"
           dir
+          
               
-      - name: extract-7z-action
-        run: ./7za.exe x ${{ github.event.inputs.enginePath }} -oEngine
--7z -oEngine
-
+      - name: download and extract-7z-action
+        run: |
+          $TargetEnginePath = "${{ github.event.inputs.enginePath }}";
+          if( TargetEnginePath.StartsWith("http") )
+          {
+             Invoke-Webrequest -URI $TargetEnginePath -OutFile "./DownloadedEngine.7z"
+             $TargetEnginePath = "./DownloadedEngine.7z"
+          }
+          ./7za.exe x $TargetEnginePath -oEngine
+        
       - uses: actions/setup-python@v4
         with:
           python-version: '3.x'
