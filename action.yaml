@@ -8,6 +8,8 @@ inputs:
   pluginPath:
     required: true
     type: string
+  pluginPathIsDownload:
+    type: boolean
     
 # Steps represent a sequence of tasks that will be executed as part of the job
 
@@ -26,14 +28,16 @@ runs:
 
     - name: download and extract-7z-action
       shell: pwsh
+      if: ${{ inputs.pluginPathIsDownload  == 'true' }}
       run: |
-        $TargetEnginePath = "${{ inputs.enginePath }}";
-        if( $TargetEnginePath -like 'http*' )
-        {
-           Invoke-Webrequest -URI $TargetEnginePath -OutFile "./DownloadedEngine.7z"
-           $TargetEnginePath = "./DownloadedEngine.7z"
-        }
+        $TargetEnginePath = "${{ github.action_path }}/DownloadedEngine.7z"
+        Invoke-Webrequest -URI ${{ inputs.pluginPath }} -OutFile $TargetEnginePath
         ${{ github.action_path }}/7za.exe x $TargetEnginePath -oEngine
+        
+    - name: extract-7z-action
+      shell: pwsh
+      if: ${{ inputs.pluginPathIsDownload  == 'false' }}
+      run: ${{ github.action_path }}/7za.exe x "${{ inputs.pluginPath }}" -o${{ github.action_path }}/Engine
 
     - uses: actions/setup-python@v4
       with:
@@ -45,14 +49,15 @@ runs:
 
     - name: Set root ue4cli
       shell: pwsh
-      run: ue4 setroot "./Engine"
+      run: ue4 setroot "${{ github.action_path }}/Engine"
 
     - name: Create Plugins folder and move plugins
       shell: pwsh
       run: |
-        New-Item "./Plugins" -itemType Directory
-        Copy-Item -Path "${{ inputs.pluginPath }}/*" -Destination "./Plugins/Plugin" -Recurse -Force
-        cd Plugins/Plugin
+        New-Item "${{ github.action_path }}/Plugins" -itemType Directory
+        New-Item "${{ github.action_path }}/Plugins/Plugin" -itemType Directory
+        Copy-Item -Path "${{ inputs.pluginPath }}/*" -Destination "${{ github.action_path }}/Plugins/Plugin" -Recurse -Force
+        cd ${{ github.action_path }}/Plugins/Plugin
         dir
 
     - name: Run ue4cli
