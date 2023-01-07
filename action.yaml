@@ -28,14 +28,14 @@ jobs:
       
       - name: debug
         run: |
-          echo "enginePath: ${{ github.event.inputs.enginePath }}"
-          echo "pluginPath: ${{ github.event.inputs.pluginPath }}"
+          echo "enginePath: ${{ inputs.enginePath }}"
+          echo "pluginPath: ${{ inputs.pluginPath }}"
           dir
           
               
       - name: download and extract-7z-action
         run: |
-          $TargetEnginePath = "${{ github.event.inputs.enginePath }}";
+          $TargetEnginePath = "${{ inputs.enginePath }}";
           if( TargetEnginePath.StartsWith("http") )
           {
              Invoke-Webrequest -URI $TargetEnginePath -OutFile "./DownloadedEngine.7z"
@@ -56,7 +56,7 @@ jobs:
       - name: Create Plugins folder and move plugins
         run: |
           New-Item "./Plugins" -itemType Directory
-          Copy-Item -Path "{{ github.event.inputs.pluginPath }}/*" -Destination "./Plugins/Plugin" -Recurse -Force
+          Copy-Item -Path "{{ inputs.pluginPath }}/*" -Destination "./Plugins/Plugin" -Recurse -Force
           cd Plugins/Plugin
           dir
       - name: Run ue4cli
