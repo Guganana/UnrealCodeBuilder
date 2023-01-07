@@ -59,9 +59,8 @@ runs:
         New-Item "${{ github.action_path }}/Plugins" -itemType Directory
         New-Item "${{ github.action_path }}/Plugins/Plugin" -itemType Directory
         Copy-Item -Path "${{ inputs.pluginPath }}/*" -Destination "${{ github.action_path }}/Plugins/Plugin" -Recurse -Force
-        cd ${{ github.action_path }}/Plugins/Plugin
         dir
 
     - name: Run ue4cli
       shell: pwsh
-      run: ue4 build # -NoPCH -NoSharedPCH -DisableUnity
+      run: cd ${{ github.action_path }}/Plugins/Plugin; ue4 build # -NoPCH -NoSharedPCH -DisableUnity
