@@ -21,6 +21,7 @@ runs:
       run: |
         echo ${{ inputs.enginePath }}
         echo ${{ inputs.pluginPath }}
+        echo ${{ github.action_path }}
         dir
 
     - name: download and extract-7z-action
