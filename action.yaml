@@ -29,7 +29,7 @@ runs:
 
     - name: download and extract-7z-action
       shell: pwsh
-      if: ${{ inputs.enginePathIsDownload  == true }}
+      if: ${{ inputs.enginePathIsDownload }}
       run: |
         $TargetEnginePath = "${{ github.action_path }}/DownloadedEngine.7z"
         Invoke-Webrequest -URI ${{ inputs.pluginPath }} -OutFile $TargetEnginePath
@@ -38,7 +38,7 @@ runs:
         
     - name: extract-7z-action
       shell: pwsh
-      if: ${{ inputs.enginePathIsDownload  == false }}
+      if: ${{ !inputs.enginePathIsDownload }}
       run: ${{ github.action_path }}/7za.exe x "${{ inputs.pluginPath }}" -o${{ github.action_path }}/Engine
 
     - uses: actions/setup-python@v4
