@@ -5,11 +5,12 @@ inputs:
   enginePath:
     required: true
     type: string
+  enginePathIsDownload:
+    type: boolean
+    required: true
   pluginPath:
     required: true
     type: string
-  pluginPathIsDownload:
-    type: boolean
     
 # Steps represent a sequence of tasks that will be executed as part of the job
 
@@ -28,7 +29,7 @@ runs:
 
     - name: download and extract-7z-action
       shell: pwsh
-      if: ${{ inputs.pluginPathIsDownload  == 'true' }}
+      if: ${{ inputs.enginePathIsDownload  == true }}
       run: |
         $TargetEnginePath = "${{ github.action_path }}/DownloadedEngine.7z"
         Invoke-Webrequest -URI ${{ inputs.pluginPath }} -OutFile $TargetEnginePath
@@ -37,7 +38,7 @@ runs:
         
     - name: extract-7z-action
       shell: pwsh
-      if: ${{ inputs.pluginPathIsDownload  == 'false' }}
+      if: ${{ inputs.enginePathIsDownload  == false }}
       run: ${{ github.action_path }}/7za.exe x "${{ inputs.pluginPath }}" -o${{ github.action_path }}/Engine
 
     - uses: actions/setup-python@v4
