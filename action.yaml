@@ -27,7 +27,7 @@ runs:
       shell: pwsh
       run: |
         $TargetEnginePath = "${{ inputs.enginePath }}";
-        if( TargetEnginePath.StartsWith("http") )
+        if( $TargetEnginePath -like 'http*' )
         {
            Invoke-Webrequest -URI $TargetEnginePath -OutFile "./DownloadedEngine.7z"
            $TargetEnginePath = "./DownloadedEngine.7z"
