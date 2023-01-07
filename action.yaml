@@ -32,7 +32,7 @@ runs:
            Invoke-Webrequest -URI $TargetEnginePath -OutFile "./DownloadedEngine.7z"
            $TargetEnginePath = "./DownloadedEngine.7z"
         }
-        ./7za.exe x $TargetEnginePath -oEngine
+        ${{ github.action_path }}/7za.exe x $TargetEnginePath -oEngine
 
     - uses: actions/setup-python@v4
       with:
