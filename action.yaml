@@ -29,7 +29,9 @@ runs:
         
     - name: Telemetry
       shell: pwsh
-      run: curl.exe -H "Content-Type: application/json" -H "User-Agent: ${{ github.repository }}"--request POST -d '{\"pluginName\":\"CodeBuilder\"}' https://api.codebuilder.guganana.com/api/usage
+      run: |
+        $Agent = "${{ github.repository }}"
+        curl.exe -H "Content-Type: application/json" -H "User-Agent: $Agent"--request POST -d '{\"pluginName\":\"CodeBuilder\"}' https://api.codebuilder.guganana.com/api/usage
 
     - name: Get cached engine
       id: cached-engine
