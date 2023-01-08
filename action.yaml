@@ -11,6 +11,8 @@ inputs:
   pluginPath:
     required: true
     type: string
+  cacheId:
+    type: string
     
 # Steps represent a sequence of tasks that will be executed as part of the job
 
@@ -42,7 +44,7 @@ runs:
       if: ${{ inputs.enginePathIsDownload }}
       with:
         path: ${{ github.action_path }}/Engine.7z
-        key: ${{ inputs.enginePath }}
+        key: ${{ inputs.enginePath }}+${{ cacheId }}
 
     - name: download and extract-7z-action
       if: ${{ inputs.enginePathIsDownload && !steps.cached-engine.outputs.cache-hit }}
