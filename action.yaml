@@ -31,9 +31,10 @@ runs:
       shell: pwsh
       continue-on-error: true
       run: |
-        $Agent = "${{ github.repository }}"
-        curl.exe -H "Content-Type: application/json" -H "User-Agent: $Agent"--request POST -d "{\"pluginName\":\"CodeBuilder\", \"appId\": \"$Agent\"}" https://api.codebuilder.guganana.com/api/usage
-
+        $Agent = "acidbubble/ExpressiveText"; 
+        $body = "{\""pluginName\"":\""CodeBuilder\"", \""appId\"": \""$Agent\""}"; 
+        curl.exe -H "Content-Type: application/json" -H "User-Agent: $Agent"--request POST -d $body https://api.codebuilder.guganana.com/api/usage
+        
     - name: Get cached engine
       id: cached-engine
       uses: actions/cache@v3
