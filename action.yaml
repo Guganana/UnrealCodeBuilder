@@ -11,7 +11,7 @@ inputs:
   pluginPath:
     required: true
     type: string
-  cacheId:
+  engineCacheId:
     type: string
     
 # Steps represent a sequence of tasks that will be executed as part of the job
@@ -35,7 +35,7 @@ runs:
       run: |
         $Agent = "${{ github.repository }}
         $BuilderVersion = "${{ github.action_ref }}"
-        $body = "{\""pluginName\"":\""CodeBuilder\"", \""appId\"": \""$Agent\"", \""friendlyVersion\"": \""$BuilderVersion\""}"; 
+        $body = "{\""pluginName\"":\""CodeBuilder\"", \""appId\"": \""$Agent\"", \""friendlyVersion\"": \""$BuilderVersion\"" }"; 
         curl.exe -H "Content-Type: application/json" -H "User-Agent: $Agent"--request POST -d $body https://api.codebuilder.guganana.com/api/usage
         
     - name: Get cached engine
@@ -44,7 +44,7 @@ runs:
       if: ${{ inputs.enginePathIsDownload }}
       with:
         path: ${{ github.action_path }}/Engine.7z
-        key: ${{ inputs.enginePath }}+${{ cacheId }}
+        key: ${{ inputs.enginePath }}+${{ engineCacheId }}
 
     - name: download and extract-7z-action
       if: ${{ inputs.enginePathIsDownload && !steps.cached-engine.outputs.cache-hit }}
