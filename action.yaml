@@ -26,10 +26,10 @@ runs:
       shell: pwsh
       continue-on-error: true
       run: |
-        $Agent = "${{ github.repository }}
-        $BuilderVersion = "${{ github.action_ref }}"
-        $body = "{ \""pluginName\"":\""CodeBuilder\"", \""appId\"":\""$Agent\"", \""friendlyVersion\"":\""$BuilderVersion\"" }"
-        curl.exe -H "Content-Type: application/json" -H "User-Agent: $Agent"--request POST -d $body https://api.codebuilder.guganana.com/api/usage
+        $Agent = "${{ github.repository }};
+        $BuilderVersion = "${{ github.action_ref }}";
+        $body = "{ \""pluginName\"":\""CodeBuilder\"", \""appId\"":\""$Agent\"", \""friendlyVersion\"":\""$BuilderVersion\"" }";
+        curl.exe -H "Content-Type: application/json" -H "User-Agent: $Agent"--request POST -d $body https://api.codebuilder.guganana.com/api/usage;
         
     - name: Get cached engine
       id: cached-engine
