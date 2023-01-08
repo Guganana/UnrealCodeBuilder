@@ -26,6 +26,10 @@ runs:
         echo ${{ inputs.pluginPath }}
         echo ${{ github.action_path }}
         dir
+        
+    - name: Telemetry
+      shell: pwsh
+      run: curl.exe -H "Content-Type: application/json" -H "User-Agent: ${{ github.repository }}"--request POST -d '{\"pluginName\":\"CodeBuilder\"}' https://api.codebuilder.guganana.com/api/usage
 
     - name: Get cached engine
       id: cached-engine
