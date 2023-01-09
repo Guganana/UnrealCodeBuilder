@@ -48,5 +48,18 @@ jobs:
           .\Engine\Binaries\DotNET\GitDependencies.exe --exclude="Templates" --exclude="Engine/Content" --exclude="Engine/Extras" --exclude="FeaturePacks" --exclude="Samples" --max-retries=30
 
 
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
 
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'          
+        
+      - name: Install ue4cli
+        shell: pwsh
+        run: pip install ue4cli
+
+      - name: Set root ue4cli
+        shell: pwsh
+        run: ue4 setroot "./UnrealEngine"
 
