@@ -1,6 +1,11 @@
 
 name: UEDownload
 
+inputs:
+  UnrealEnginePAT:
+    required: true
+    type: string
+
 runs:
   using: "composite"
   steps:
@@ -10,7 +15,7 @@ runs:
     #- name: Clone Unreal Engine
      # shell: pwsh
      # env: 
-      #  TOKEN: ${{ secrets.UNREAL_TOKEN }}
+      #  TOKEN: 
       #run: |
        # New-Item C:\UnrealEngine -itemType Directory
        # cd C:\UnrealEngine
@@ -32,7 +37,7 @@ runs:
       if: ${{ !steps.cached-engine.outputs.cache-hit }}
       with:
         repository: EpicGames/UnrealEngine
-        token: ${{ secrets.UNREAL_TOKEN }}
+        token: ${{ inputs.UnrealEnginePAT }}
         path: ./UnrealEngine
         fetch-depth: 1
         ref: "5.0.3-release"
