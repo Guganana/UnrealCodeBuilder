@@ -33,44 +33,15 @@ jobs:
           token: ${{ secrets.UNREAL_TOKEN }}
           path: ./UnrealEngine
           fetch-depth: 1
-          branch: release
+          ref: "5.0.3-release"
           
       - name: Download Unreal Engine image from the web link
         shell: pwsh
-        continue-on-error: true
         run: |
           cd ./UnrealEngine
           dir
           .\Engine\Binaries\DotNET\GitDependencies\win-x64\GitDependencies.exe --exclude="Templates" --exclude="Engine/Content" --exclude="Engine/Extras" --exclude="FeaturePacks" --exclude="Samples" --max-retries=30
 
-               
-      - name: Download Unreal Engine image from the web link
-        shell: pwsh
-        continue-on-error: true
-        run: |
-          cd ./UnrealEngine
-          dir
-          .\Engine\Binaries\DotNET\GitDependencies\win-x64\GitDependencies.exe --exclude="Templates" --exclude="Engine/Content" --exclude="Engine/Extras" --exclude="FeaturePacks" --exclude="Samples" --max-retries=30
-
-               
-      - name: Download Unreal Engine image from the web link
-        shell: pwsh
-        continue-on-error: true
-        run: |
-          cd ./UnrealEngine
-          dir
-          .\Engine\Binaries\DotNET\GitDependencies\win-x64\GitDependencies.exe --exclude="Templates" --exclude="Engine/Content" --exclude="Engine/Extras" --exclude="FeaturePacks" --exclude="Samples" --max-retries=30
-
-               
-      - name: Download Unreal Engine image from the web link
-        shell: pwsh
-        continue-on-error: true
-        run: |
-          cd ./UnrealEngine
-          dir
-          .\Engine\Binaries\DotNET\GitDependencies\win-x64\GitDependencies.exe --exclude="Templates" --exclude="Engine/Content" --exclude="Engine/Extras" --exclude="FeaturePacks" --exclude="Samples" --max-retries=30
-
-     
 
 
 
