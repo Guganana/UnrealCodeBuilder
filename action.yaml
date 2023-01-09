@@ -14,6 +14,10 @@ inputs:
   engineCacheId:
     required: false
     type: string
+  outputFolderName:
+    required: false
+    type: string
+    default: "Plugin"
     
 # Steps represent a sequence of tasks that will be executed as part of the job
 
@@ -68,11 +72,12 @@ runs:
     - name: Create Plugins folder and move plugins
       shell: pwsh
       run: |
-        New-Item "${{ github.action_path }}/Plugins" -itemType Directory
-        New-Item "${{ github.action_path }}/Plugins/Plugin" -itemType Directory
-        Copy-Item -Path "${{ inputs.pluginPath }}/*" -Destination "${{ github.action_path }}/Plugins/Plugin" -Recurse -Force
+        $PluginFolderPath = "UnrealCodeBuilder/${{ inputs.outputFolderName }}"
+        New-Item "UnrealCodeBuilder/" -itemType Directory
+        New-Item $PluginFolderPath -itemType Directory
+        Copy-Item -Path "${{ inputs.pluginPath }}/*" -Destination $PluginFolderPath -Recurse -Force
         dir
 
     - name: Run ue4cli
       shell: pwsh
-      run: cd ${{ github.action_path }}/Plugins/Plugin; ue4 build # -NoPCH -NoSharedPCH -DisableUnity
+      run: cd UnrealCodeBuilder/${{ inputs.outputFolderName }}; ue4 build # -NoPCH -NoSharedPCH -DisableUnity
