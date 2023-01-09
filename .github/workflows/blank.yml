@@ -18,14 +18,14 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       
-      - name: Clone Unreal Engine
-        shell: pwsh
-        env: 
-          TOKEN: ${{ secrets.UNREAL_TOKEN }}
-        run: |
-          New-Item C:\UnrealEngine -itemType Directory
-          cd C:\UnrealEngine
-          git clone "https://$env:TOKEN@github.com:EpicGames/UnrealEngine.git" --depth 1 --branch 5.0.3-release
+      #- name: Clone Unreal Engine
+       # shell: pwsh
+       # env: 
+        #  TOKEN: ${{ secrets.UNREAL_TOKEN }}
+        #run: |
+         # New-Item C:\UnrealEngine -itemType Directory
+         # cd C:\UnrealEngine
+          #git clone "https://$env:TOKEN@github.com:EpicGames/UnrealEngine.git" --depth 1 --branch 5.0.3-release
           
       #- name: Get cached engine
        # id: cached-engine
@@ -34,15 +34,18 @@ jobs:
        #   path: "C:/UnrealEngine"
        #   key: "CachedEngine"
 
-      #- name: Checkout Unreal
-       # uses: actions/checkout@v3
-        #if: ${{ !steps.cached-engine.outputs.cache-hit }}
-        #with:
-        #  repository: EpicGames/UnrealEngine
-         # token: ${{ secrets.UNREAL_TOKEN }}
-          #path: ./UnrealEngineTemp
-          #fetch-depth: 1
-         # ref: "5.0.3-release"
+      - name: SymLink Unreal Engine clone directory
+        run: New-Item -Path C:/UnrealEngine -ItemType SymbolicLink -Value D:/a/UnrealEngine/UnrealEngine
+        
+      - name: Checkout Unreal
+        uses: actions/checkout@v3
+        if: ${{ !steps.cached-engine.outputs.cache-hit }}
+        with:
+          repository: EpicGames/UnrealEngine
+          token: ${{ secrets.UNREAL_TOKEN }}
+          path: ./UnrealEngineTemp
+          fetch-depth: 1
+          ref: "5.0.3-release"
 
       - name: Copy Unreal into largest drive
         shell: pwsh
