@@ -16,7 +16,7 @@ inputs:
   outputFolder:
     required: false
     type: string
-    default: "./UnrealCodeBuilder/Plugin"
+    default: "./.UnrealCodeBuilder/"
   buildFlags:
     required: false
     type: string
