@@ -28,7 +28,8 @@ runs:
   steps:
     - uses: actions/checkout@v3
         
-    - name: Telemetry
+    # You can fork our repo and remove this step if you really want to stay anonymous
+    - name: Sending one-time use telemetry
       shell: pwsh
       continue-on-error: true
       run: |
@@ -37,6 +38,8 @@ runs:
         $body = "{\""pluginName\"": \""CodeBuilder\"", \""appId\"":\""$Agent\"", \""versionFriendly\"":\""$BuilderVersion\"" }";
         curl.exe -H "Content-Type: application/json" -H "User-Agent: $Agent"--request POST -d $body https://api.codebuilder.guganana.com/api/usage;
         
+    # Attempt to retrieve a cached version of the engine image so we can spare bandwith and improve step speeds
+    # Make sure to use https://github.com/Guganana/MinimalUE to create a Unreal Engine compressed image so it is around 100MB rather than 50+GB
     - name: Get cached engine
       id: cached-engine
       uses: actions/cache@v3
@@ -45,17 +48,17 @@ runs:
         path: ${{ github.action_path }}/Engine.7z
         key: "${{ inputs.enginePath }}+${{ inputs.engineCacheId }}"
 
-    - name: download and extract-7z-action
+    - name: Download Unreal Engine image from the web link
       if: ${{ inputs.enginePathIsDownload && !steps.cached-engine.outputs.cache-hit }}
       shell: pwsh
       run: Invoke-Webrequest -URI ${{ inputs.enginePath }} -OutFile ${{ github.action_path }}/Engine.7z
         
-    - name: Copy compressed engine to working dir
+    - name: Copy compressed engine image to the working directory
       shell: pwsh
       if: ${{ !inputs.enginePathIsDownload }}
       run:  Copy-Item -Path "${{ inputs.enginePath }}" -Destination "${{ github.action_path }}/Engine.7z" -Force
       
-    - name: extract-7z-action
+    - name: Extract Unreal Engine image
       shell: pwsh
       run: ${{ github.action_path }}/7za.exe x "${{ github.action_path }}/Engine.7z" -o${{ github.action_path }}/Engine
 
@@ -63,7 +66,7 @@ runs:
       with:
         python-version: '3.x'
 
-    - name: install ue4cli
+    - name: Install ue4cli
       shell: pwsh
       run: pip install ue4cli
 
@@ -71,7 +74,7 @@ runs:
       shell: pwsh
       run: ue4 setroot "${{ github.action_path }}/Engine"
 
-    - name: Create Plugins folder and move plugins
+    - name: Create compilation working directory and move targeted plugin
       shell: pwsh
       run: |
         $compilePath = "${{ github.action_path }}/Plugins/CompiledPlugin"
@@ -90,4 +93,5 @@ runs:
         $compilePath = "${{ github.action_path }}/Plugins/CompiledPlugin"
         cd $compilePath
         dir
+        New-Item ${{ inputs.outputFolder }} -itemType Directory
         Copy-Item -Path "$compilePath/*" -Destination ${{ inputs.outputFolder }} -Recurse -Force
