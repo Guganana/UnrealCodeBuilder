@@ -35,7 +35,7 @@ jobs:
        #   key: "CachedEngine"
 
       - name: SymLink Unreal Engine clone directory
-        run: New-Item -Path C:/UnrealEngine -ItemType SymbolicLink -Value D:/a/UnrealEngine/UnrealEngine
+        run: New-Item -Path D:/a/UnrealEngine -ItemType SymbolicLink -Value C:/
         
       - name: Checkout Unreal
         uses: actions/checkout@v3
