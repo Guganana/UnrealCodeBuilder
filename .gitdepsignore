@@ -5,9 +5,9 @@ FeaturePacks/**
 Samples/**
 Templates/**
 
-
 Engine/Plugins/Experimental/**
 Engine/Plugins/Experimental/**/*.dll
+Engine/Plugins/Experimental/**/*.lib
 Engine/Plugins/Experimental/**/*.cs
 
 Plugins/Experimental/PythonFoundationPackages/**/torch/**
