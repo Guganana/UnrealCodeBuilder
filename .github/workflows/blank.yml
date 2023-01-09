@@ -46,10 +46,6 @@ jobs:
           path: ./UnrealEngineTemp
           fetch-depth: 1
           ref: "5.0.3-release"
-
-      - name: Copy Unreal into largest drive
-        shell: pwsh
-        run:  Copy-Item -Path "./UnrealEngineTemp" -Destination C:/UnrealEngine -Force -Recurse
         
       - name: copy gitdepsignore file
         shell: pwsh
