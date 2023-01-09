@@ -22,7 +22,7 @@ jobs:
        # id: cached-engine
        # uses: actions/cache@v3
        # with:
-       #   path: "./UnrealEngine"
+       #   path: "C:/UnrealEngine"
        #   key: "CachedEngine"
 
       - name: Checkout Unreal
@@ -31,7 +31,7 @@ jobs:
         with:
           repository: EpicGames/UnrealEngine
           token: ${{ secrets.UNREAL_TOKEN }}
-          path: ./UnrealEngine
+          path: C:/UnrealEngine
           fetch-depth: 1
           ref: "5.0.3-release"
 
@@ -42,7 +42,7 @@ jobs:
       - name: Download Unreal Engine dependencies
         shell: pwsh
         run: |
-          cd ./UnrealEngine
+          cd C:/UnrealEngine
           dir
           #UE5.1 .\Engine\Binaries\DotNET\GitDependencies\win-x64\GitDependencies.exe --exclude="Templates" --exclude="Engine/Content" --exclude="Engine/Extras" --exclude="FeaturePacks" --exclude="Samples" --max-retries=30
           .\Engine\Binaries\DotNET\GitDependencies.exe --exclude="Templates" --exclude="Engine/Content" --exclude="Engine/Extras" --exclude="FeaturePacks" --exclude="Samples" --max-retries=30
@@ -61,7 +61,7 @@ jobs:
 
       - name: Set root ue4cli
         shell: pwsh
-        run: ue4 setroot "./UnrealEngine"
+        run: ue4 setroot "C:/UnrealEngine"
 
       - name: Build Engine
         shell: pwsh
