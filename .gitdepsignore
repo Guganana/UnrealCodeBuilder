@@ -22,11 +22,19 @@ Engine/Source/ThirdParty/**
 !Engine/Source/ThirdParty/**/*.dll
 !Engine/Source/ThirdParty/**/*.exe
 
+**/mac-arm64/**
+**/mac-x64/**
+**/mac/**
+**/linux/**
+**/*linux*/**
+
 *.so
 *.so.*
 *.a
 *.png
 *.bmp
 *.dylib
-*.dsim
+*.dsym
 *.jar
+*.debug
+*.zip
