@@ -12,14 +12,12 @@ runs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v3
 
-    #- name: Clone Unreal Engine
-     # shell: pwsh
-     # env: 
-      #  TOKEN: 
-      #run: |
-       # New-Item C:\UnrealEngine -itemType Directory
-       # cd C:\UnrealEngine
-        #git clone "https://$env:TOKEN@github.com:EpicGames/UnrealEngine.git" --depth 1 --branch 5.0.3-release
+    - name: Clone Unreal Engine
+      shell: pwsh
+      run: |
+        New-Item C:\UnrealEngine -itemType Directory
+        cd C:\UnrealEngine
+        git clone https://${{ inputs.UnrealEnginePAT }}@github.com:EpicGames/UnrealEngine.git --depth 1 --branch 5.0.3-release
 
     #- name: Get cached engine
      # id: cached-engine
@@ -28,19 +26,19 @@ runs:
      #   path: "C:/UnrealEngine"
      #   key: "CachedEngine"
 
-    - name: SymLink Unreal Engine clone directory
-      shell: pwsh
-      run: New-Item -Path ./UnrealEngine -ItemType SymbolicLink -Value C:/UnrealEngine
+    #- name: SymLink Unreal Engine clone directory
+     # shell: pwsh
+      #run: New-Item -Path ./UnrealEngine -ItemType SymbolicLink -Value C:/UnrealEngine
 
-    - name: Checkout Unreal
-      uses: actions/checkout@v3
-      if: ${{ !steps.cached-engine.outputs.cache-hit }}
-      with:
-        repository: EpicGames/UnrealEngine
-        token: ${{ inputs.UnrealEnginePAT }}
-        path: ./UnrealEngine
-        fetch-depth: 1
-        ref: "5.0.3-release"
+    #- name: Checkout Unreal
+     # uses: actions/checkout@v3
+      #if: ${{ !steps.cached-engine.outputs.cache-hit }}
+     # with:
+      #  repository: EpicGames/UnrealEngine
+       # token: 
+        #path: ./UnrealEngine
+        #fetch-depth: 1
+        #ref: "5.0.3-release"
 
     - name: copy gitdepsignore file
       shell: pwsh
