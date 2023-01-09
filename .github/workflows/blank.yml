@@ -31,13 +31,17 @@ jobs:
         with:
           repository: EpicGames/UnrealEngine
           token: ${{ secrets.UNREAL_TOKEN }}
-          path: C:/UnrealEngine
+          path: ./UnrealEngineTemp
           fetch-depth: 1
           ref: "5.0.3-release"
 
       - name: copy gitdepsignore file
         shell: pwsh
-        run:  Copy-Item -Path "./.gitdepsignore" -Destination ./UnrealEngine -Force          
+        run:  Copy-Item -Path "./UnrealEngineTemp" -Destination C:/UnrealEngine -Force -Recursive
+        
+      - name: copy gitdepsignore file
+        shell: pwsh
+        run:  Copy-Item -Path "./.gitdepsignore" -Destination C/UnrealEngine -Force          
           
       - name: Download Unreal Engine dependencies
         shell: pwsh
