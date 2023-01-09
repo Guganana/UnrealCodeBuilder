@@ -21,7 +21,6 @@ jobs:
       - name: Get cached engine
         id: cached-engine
         uses: actions/cache@v3
-        if: ${{ inputs.enginePathIsDownload }}
         with:
           path: "./UnrealEngine"
           key: "CachedEngine"
