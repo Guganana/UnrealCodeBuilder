@@ -20,6 +20,7 @@ Engine/Binaries/ThirdParty/**
 
 Engine/Source/ThirdParty/**
 !Engine/Source/ThirdParty/**/*.dll
+!Engine/Source/ThirdParty/**/*.exe
 
 *.so
 *.so.*
