@@ -34,8 +34,12 @@ jobs:
           path: ./UnrealEngine
           fetch-depth: 1
           ref: "5.0.3-release"
+
+      - name: copy gitdepsignore file
+        shell: pwsh
+        run:  Copy-Item -Path "./.gitdepsignore" -Destination ./UnrealEngine -Force          
           
-      - name: Download Unreal Engine image from the web link
+      - name: Download Unreal Engine dependencies
         shell: pwsh
         run: |
           cd ./UnrealEngine
