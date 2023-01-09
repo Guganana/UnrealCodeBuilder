@@ -46,7 +46,7 @@ jobs:
           dir
           #UE5.1 .\Engine\Binaries\DotNET\GitDependencies\win-x64\GitDependencies.exe --exclude="Templates" --exclude="Engine/Content" --exclude="Engine/Extras" --exclude="FeaturePacks" --exclude="Samples" --max-retries=30
           .\Engine\Binaries\DotNET\GitDependencies.exe --exclude="Templates" --exclude="Engine/Content" --exclude="Engine/Extras" --exclude="FeaturePacks" --exclude="Samples" --max-retries=30
-
+          Get-Volume
 
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.1
