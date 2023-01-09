@@ -36,11 +36,4 @@ jobs:
           branch: release
           
         
-      - name: Download Unreal Engine image from the web link
-        shell: pwsh
-        run: |
-          cd ./UnrealEngine
-          dir
-          .\Engine\Binaries\DotNET\GitDependencies\win-x64\GitDependencies.exe --exclude="Templates" --exclude="Engine/Content" --exclude="Engine/Extras" --exclude="FeaturePacks" --exclude="Samples"
 
-     
