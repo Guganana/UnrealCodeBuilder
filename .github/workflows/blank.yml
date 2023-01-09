@@ -63,6 +63,6 @@ jobs:
         shell: pwsh
         run: ue4 setroot "./UnrealEngine"
 
-      - name: Set root ue4cli
+      - name: Build Engine
         shell: pwsh
         run: ue4 build-target UnrealEditor Development #needs to be UE4Editor on ue4
