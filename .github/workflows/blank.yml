@@ -38,7 +38,6 @@ jobs:
           
         
       - name: Download Unreal Engine image from the web link
-        if: ${{ inputs.enginePathIsDownload && !steps.cached-engine.outputs.cache-hit }}
         shell: pwsh
         run: |
           cd ./UnrealEngine
