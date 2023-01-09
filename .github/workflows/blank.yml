@@ -18,6 +18,13 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       
+      - name: Clone Unreal Engine
+        shell: pwsh
+        run: |
+          New-Item C:\UnrealEngine -itemType Directory
+          cd C:\UnrealEngine
+          git clone https://${{ secrets.UNREAL_TOKEN }}@github.com:EpicGames/UnrealEngine.git --depth 1 --branch 5.0.3-release
+          
       #- name: Get cached engine
        # id: cached-engine
        # uses: actions/cache@v3
@@ -25,15 +32,15 @@ jobs:
        #   path: "C:/UnrealEngine"
        #   key: "CachedEngine"
 
-      - name: Checkout Unreal
-        uses: actions/checkout@v3
-        if: ${{ !steps.cached-engine.outputs.cache-hit }}
-        with:
-          repository: EpicGames/UnrealEngine
-          token: ${{ secrets.UNREAL_TOKEN }}
-          path: ./UnrealEngineTemp
-          fetch-depth: 1
-          ref: "5.0.3-release"
+      #- name: Checkout Unreal
+       # uses: actions/checkout@v3
+        #if: ${{ !steps.cached-engine.outputs.cache-hit }}
+        #with:
+        #  repository: EpicGames/UnrealEngine
+         # token: ${{ secrets.UNREAL_TOKEN }}
+          #path: ./UnrealEngineTemp
+          #fetch-depth: 1
+         # ref: "5.0.3-release"
 
       - name: Copy Unreal into largest drive
         shell: pwsh
@@ -41,7 +48,7 @@ jobs:
         
       - name: copy gitdepsignore file
         shell: pwsh
-        run:  Copy-Item -Path "./.gitdepsignore" -Destination C/UnrealEngine -Force          
+        run:  Copy-Item -Path "./.gitdepsignore" -Destination C/:UnrealEngine -Force          
           
       - name: Download Unreal Engine dependencies
         shell: pwsh
