@@ -40,7 +40,8 @@ jobs:
         run: |
           cd ./UnrealEngine
           dir
-          .\Engine\Binaries\DotNET\GitDependencies\win-x64\GitDependencies.exe --exclude="Templates" --exclude="Engine/Content" --exclude="Engine/Extras" --exclude="FeaturePacks" --exclude="Samples" --max-retries=30
+          #UE5.1 .\Engine\Binaries\DotNET\GitDependencies\win-x64\GitDependencies.exe --exclude="Templates" --exclude="Engine/Content" --exclude="Engine/Extras" --exclude="FeaturePacks" --exclude="Samples" --max-retries=30
+          .\Engine\Binaries\DotNET\GitDependencies.exe --exclude="Templates" --exclude="Engine/Content" --exclude="Engine/Extras" --exclude="FeaturePacks" --exclude="Samples" --max-retries=30
 
 
 
