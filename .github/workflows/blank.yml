@@ -21,3 +21,5 @@ jobs:
     
     - name: DownloadUE
       uses: ./get-unreal
+      with:
+        UnrealEnginePAT: ${{ secrets.UNREAL_TOKEN }}
