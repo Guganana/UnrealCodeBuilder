@@ -1,6 +1,5 @@
 name: UnrealCodeBuild
 
-# Controls when the workflow will run
 inputs:
   enginePath:
     required: true
@@ -18,8 +17,11 @@ inputs:
     required: false
     type: string
     default: "./UnrealCodeBuilder/Plugin"
+  buildFlags:
+    required: false
+    type: string
+    default: ""
     
-# Steps represent a sequence of tasks that will be executed as part of the job
 
 runs:
   using: "composite"
@@ -72,11 +74,20 @@ runs:
     - name: Create Plugins folder and move plugins
       shell: pwsh
       run: |
-        $outputFolderPath = "${{ inputs.outputFolder }}"
-        New-Item $outputFolderPath -itemType Directory
-        Copy-Item -Path "${{ inputs.pluginPath }}/*" -Destination $outputFolderPath -Recurse -Force
-        dir $outputFolderPath
+        $compilePath = "${{ github.action_path }}/Plugins/CompiledPlugin"
+        New-Item $compilePath -itemType Directory
+        Copy-Item -Path "${{ inputs.pluginPath }}/*" -Destination $compilePath -Recurse -Force
 
-    - name: Run ue4cli
+    - name: Build plugin
       shell: pwsh
-      run: cd ${{ inputs.outputFolder }}; ue4 build # -NoPCH -NoSharedPCH -DisableUnity
+      run: |
+        cd "${{ github.action_path }}/Plugins/CompiledPlugin"; 
+        ue4 build ${{ inputs.buildFlags }}
+      
+    - name: Move built plugin into output folder
+      shell: pwsh
+      run: |
+        $compilePath = "${{ github.action_path }}/Plugins/CompiledPlugin"
+        cd $compilePath
+        dir
+        Copy-Item -Path "$compilePath/*" -Destination ${{ inputs.outputFolder }} -Recurse -Force
