@@ -34,6 +34,7 @@ jobs:
           token: ${{ secrets.UNREAL_TOKEN }}
           path: ./UnrealEngine
           fetch-depth: 1
+          branch: release
           
         
       - name: Download Unreal Engine image from the web link
