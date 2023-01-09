@@ -20,10 +20,12 @@ jobs:
       
       - name: Clone Unreal Engine
         shell: pwsh
+        env: 
+          TOKEN: ${{ secrets.UNREAL_TOKEN }}
         run: |
           New-Item C:\UnrealEngine -itemType Directory
           cd C:\UnrealEngine
-          git clone https://${{ secrets.UNREAL_TOKEN }}@github.com:EpicGames/UnrealEngine.git --depth 1 --branch 5.0.3-release
+          git clone https://$TOKEN@github.com/EpicGames/UnrealEngine.git --depth 1 --branch 5.0.3-release
           
       #- name: Get cached engine
        # id: cached-engine
