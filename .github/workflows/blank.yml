@@ -1,0 +1,47 @@
+# This is a basic workflow to help you get started with Actions
+
+name: UEGet
+
+# Controls when the workflow will run
+on:
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      
+      - name: Get cached engine
+        id: cached-engine
+        uses: actions/cache@v3
+        if: ${{ inputs.enginePathIsDownload }}
+        with:
+          path: "./UnrealEngine"
+          key: "CachedEngine"
+
+      - name: Checkout Unreal
+        uses: actions/checkout@v3
+        if: ${{ !steps.cached-engine.outputs.cache-hit }}
+        with:
+          repository: EpicGames/UnrealEngine
+          token: ${{ secrets.UNREAL_TOKEN }}
+          path: ./UnrealEngine
+          fetch-depth: 1
+          
+        
+      - name: Download Unreal Engine image from the web link
+        if: ${{ inputs.enginePathIsDownload && !steps.cached-engine.outputs.cache-hit }}
+        shell: pwsh
+        run: |
+          cd ./UnrealEngine
+          dir
+          .\Engine\Binaries\DotNET\GitDependencies\win-x64\GitDependencies.exe --exclude="Templates" --exclude="Engine/Content" --exclude="Engine/Extras" --exclude="FeaturePacks" --exclude="Samples"
+
+     
