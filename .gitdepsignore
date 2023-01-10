@@ -11,7 +11,8 @@ Engine/Plugins/Experimental/**
 !Engine/Plugins/Experimental/**/*.lib
 !Engine/Plugins/Experimental/**/*.cs
 
-Plugins/Experimental/PythonFoundationPackages/**/torch/**
+Engine/Plugins/Experimental/**
+Engine/Plugins/Experimental/PythonFoundationPackages/**/torch/**
 
 Engine/Binaries/ThirdParty/**
 !Engine/Binaries/ThirdParty/**/*.dll
