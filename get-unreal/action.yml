@@ -61,7 +61,7 @@ runs:
         cd ${{ inputs.UnrealStorageRoot }}/UnrealEngine
         dir
         #UE5.1 .\Engine\Binaries\DotNET\GitDependencies\win-x64\GitDependencies.exe 
-        .\Engine\Binaries\DotNET\GitDependencies.exe
+        .\Engine\Binaries\DotNET\GitDependencies.exe --cache=C:\GitDeps
         ./GenerateProjectFiles.bat
 
     - name: Disk info after dependencies
