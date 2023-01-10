@@ -8,12 +8,12 @@ inputs:
   UnrealStorageRoot:
     required: false
     type: string
-    default: "."
+    default: "C:"
     
 runs:
   using: "composite"
   steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+  
     - uses: actions/checkout@v3
     
     - name: Disk info
@@ -58,7 +58,6 @@ runs:
       shell: pwsh
       run: |
         Copy-Item -Path "./.gitdepsignore" -Destination ${{ inputs.UnrealStorageRoot }}/UnrealEngine -Force 
-        Get-ChildItem -Path  ${{ inputs.UnrealStorageRoot }}/UnrealEngine/Engine/Plugins -Recurse | Where {$_.FullName -notlike '*/Messaging/*'} | Remove-Item -force 
 
     - name: Download Unreal Engine dependencies
       shell: pwsh
@@ -69,6 +68,15 @@ runs:
         #.\Engine\Binaries\DotNET\GitDependencies.exe --cache=C:\GitDeps --dry-run
         .\Engine\Binaries\DotNET\GitDependencies.exe --cache=C:\GitDeps
         ./GenerateProjectFiles.bat
+        
+    - name: Remove unnecessary plugins
+      shell: pwsh
+      run: |
+        $requiredPlugins = @( 
+            "Messaging"
+        );
+        
+        ./scripts/RemoveChildDirsExcept.ps1 "${{ inputs.UnrealStorageRoot }}/Engine/Plugins" @("Messaging")
 
     - name: Disk info after dependencies
       shell: pwsh
