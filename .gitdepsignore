@@ -17,6 +17,7 @@ Engine/Binaries/ThirdParty/**
 !Engine/Binaries/ThirdParty/**/*.dll
 !Engine/Binaries/ThirdParty/**/*.cs
 !Engine/Binaries/ThirdParty/**/*.exe
+!Engine/Binaries/ThirdParty/DotNet/Windows
 
 
 Engine/Source/ThirdParty/**
