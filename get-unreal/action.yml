@@ -5,7 +5,11 @@ inputs:
   UnrealEnginePAT:
     required: true
     type: string
-
+  UnrealStorageRoot:
+    required: false
+    type: string
+    default: "."
+    
 runs:
   using: "composite"
   steps:
@@ -19,7 +23,7 @@ runs:
     - name: Clone Unreal Engine
       shell: pwsh
       run: |
-        cd C:/
+        cd ${{ inputs.UnrealStorageRoot }}/
         git clone https://${{ inputs.UnrealEnginePAT }}@github.com/EpicGames/UnrealEngine.git --depth 1 --branch 5.0.3-release
 
     - name: Disk info after clone
@@ -30,7 +34,7 @@ runs:
      # id: cached-engine
      # uses: actions/cache@v3
      # with:
-     #   path: "C:/UnrealEngine"
+     #   path: "${{ inputs.UnrealStorageRoot }}/UnrealEngine"
      #   key: "CachedEngine"
 
     #- name: SymLink Unreal Engine clone directory
@@ -43,18 +47,18 @@ runs:
      # with:
       #  repository: EpicGames/UnrealEngine
        # token: 
-        #path: ./UnrealEngine
+        #path: ${{ inputs.UnrealStorageRoot }}/UnrealEngine
         #fetch-depth: 1
         #ref: "5.0.3-release"
 
     - name: copy gitdepsignore file
       shell: pwsh
-      run:  Copy-Item -Path "./.gitdepsignore" -Destination C:/UnrealEngine -Force          
+      run:  Copy-Item -Path "./.gitdepsignore" -Destination ${{ inputs.UnrealStorageRoot }}/UnrealEngine -Force          
 
     - name: Download Unreal Engine dependencies
       shell: pwsh
       run: |
-        cd C:/UnrealEngine
+        cd ${{ inputs.UnrealStorageRoot }}/UnrealEngine
         dir
         #UE5.1 .\Engine\Binaries\DotNET\GitDependencies\win-x64\GitDependencies.exe 
         .\Engine\Binaries\DotNET\GitDependencies.exe
@@ -77,7 +81,7 @@ runs:
 
     - name: Set root ue4cli
       shell: pwsh
-      run: ue4 setroot "C:/UnrealEngine"
+      run: ue4 setroot "${{ inputs.UnrealStorageRoot }}/UnrealEngine"
 
     - name: Build Engine
       shell: pwsh
