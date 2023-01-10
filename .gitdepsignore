@@ -23,6 +23,8 @@ Engine/Source/ThirdParty/**
 #!Engine/Source/ThirdParty/**/*.lib
 #!Engine/Source/ThirdParty/**/*.exe
 
+!Engine/Source/ThirdParty/Protobuf/**/*.lib
+
 !Engine/Source/Programs/**
 
 **/mac-arm64/**
