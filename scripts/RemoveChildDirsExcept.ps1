@@ -23,5 +23,7 @@ foreach ($exception in $Exceptions)
     }
 }
 
+$FolderName = (Get-Item $BaseDir).Name;
 Remove-Item -Path $BaseDir -Recurse -Force
-Rename-Item -Path $TempDir -NewName (Get-Item $BaseDir).Name
+Rename-Item -Path $TempDir -NewName $FolderName
+
