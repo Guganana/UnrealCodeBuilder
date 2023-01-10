@@ -12,16 +12,17 @@ Engine/Plugins/Experimental/**
 !Engine/Plugins/Experimental/ProxyLODPlugin/**/*.lib
 
 Engine/Binaries/ThirdParty/**
-!Engine/Binaries/ThirdParty/**/**.dll
+#!Engine/Binaries/ThirdParty/**/**.dll
+#!Engine/Binaries/ThirdParty/**/**.exe
 !Engine/Binaries/ThirdParty/**/**.cs
-!Engine/Binaries/ThirdParty/**/**.exe
 !Engine/Binaries/ThirdParty/DotNet/**
 
 
 Engine/Source/ThirdParty/**
-!Engine/Source/ThirdParty/**/*.dll
-!Engine/Source/ThirdParty/**/*.exe
-!Engine/Source/ThirdParty/**/*.lib
+!Engine/Source/ThirdParty/**/*.cs
+#!Engine/Source/ThirdParty/**/*.dll
+#!Engine/Source/ThirdParty/**/*.lib
+#!Engine/Source/ThirdParty/**/*.exe
 
 **/mac-arm64/**
 **/mac-x64/**
@@ -41,3 +42,4 @@ Engine/Source/ThirdParty/**
 *.zip
 *.py
 *.pak
+*.obj
