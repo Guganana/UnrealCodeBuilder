@@ -19,7 +19,7 @@ Engine/Binaries/ThirdParty/**
 
 Engine/Source/ThirdParty/**
 !Engine/Source/ThirdParty/**/*.cs
-#!Engine/Source/ThirdParty/**/*.dll
+!Engine/Source/ThirdParty/**/*.dll
 #!Engine/Source/ThirdParty/**/*.lib
 #!Engine/Source/ThirdParty/**/*.exe
 
