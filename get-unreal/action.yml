@@ -76,7 +76,7 @@ runs:
             "Messaging"
         );
         
-        ./scripts/RemoveChildDirsExcept.ps1 "${{ inputs.UnrealStorageRoot }}/Engine/Plugins" @("Messaging")
+        ./scripts/RemoveChildDirsExcept.ps1 "${{ inputs.UnrealStorageRoot }}/UnrealEngine/Engine/Plugins" @("Messaging")
 
     - name: Disk info after dependencies
       shell: pwsh
