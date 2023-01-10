@@ -11,6 +11,10 @@ runs:
   steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v3
+    
+    - name: Disk info
+      shell: pwsh
+      run: Get-PSDrive
 
     - name: Clone Unreal Engine
       shell: pwsh
@@ -18,6 +22,10 @@ runs:
         cd C:/
         git clone https://${{ inputs.UnrealEnginePAT }}@github.com/EpicGames/UnrealEngine.git --depth 1 --branch 5.0.3-release
 
+    - name: Disk info after clone
+      shell: pwsh
+      run: Get-PSDrive
+      
     #- name: Get cached engine
      # id: cached-engine
      # uses: actions/cache@v3
@@ -52,6 +60,10 @@ runs:
         .\Engine\Binaries\DotNET\GitDependencies.exe
         ./GenerateProjectFiles.bat
 
+     - name: Disk info after dependencies
+      shell: pwsh
+      run: Get-PSDrive
+      
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
 
