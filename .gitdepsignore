@@ -6,21 +6,23 @@ FeaturePacks/**
 Samples/**
 Templates/**
 
+Engine/Plugins/**
+!Engine/Plugins/**/*.lib
+!/Engine/Plugins/**/*.dll
 
-# only downloading lib files for experimental plugins
 Engine/Plugins/Experimental/**
 !Engine/Plugins/Experimental/PythonScriptPlugin/**/*.lib
 !Engine/Plugins/Experimental/ProxyLODPlugin/**/*.lib
+!Engine/Plugins/Experimental/FullBodyIK/**/*.lib
 
 Engine/Binaries/ThirdParty/**
-!Engine/Binaries/ThirdParty/**/**.dll
-!Engine/Binaries/ThirdParty/**/**.cs
-!Engine/Binaries/ThirdParty/DotNet/**
+!Engine/Binaries/**/*.dll	
+!Engine/Binaries/ThirdParty/DotNet/**/*.dll	
+
 
 Engine/Source/ThirdParty/**
-Engine/Source/ThirdParty/**/*.dll
-!Engine/Source/ThirdParty/**/*.cs
 !Engine/Source/ThirdParty/**/*.lib
+!Engine/Source/ThirdParty/Intel/**/*.dll
 !Engine/Source/ThirdParty/Windows/**/*.exe
 
 !Engine/Source/Programs/**
@@ -37,6 +39,7 @@ Engine/Source/ThirdParty/**/*.dll
 *.a
 *.png
 *.bmp
+*.jpg
 *.dylib
 *.dsym
 *.jar
@@ -46,3 +49,9 @@ Engine/Source/ThirdParty/**/*.dll
 *.py
 *.pak
 *.obj
+*.txt
+
+
+# To-do before compile
+# Remove all plugins folders except messaging
+# Remove hololens platform
