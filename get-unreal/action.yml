@@ -25,6 +25,9 @@ runs:
       run: |
         cd ${{ inputs.UnrealStorageRoot }}/
         git clone https://${{ inputs.UnrealEnginePAT }}@github.com/EpicGames/UnrealEngine.git --depth 1 --branch 5.0.3-release
+   
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
 
     - name: Disk info after clone
       shell: pwsh
@@ -67,10 +70,7 @@ runs:
     - name: Disk info after dependencies
       shell: pwsh
       run: Get-PSDrive
-      
-    - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v1.1
-
+   
     - uses: actions/setup-python@v4
       with:
         python-version: '3.x'          
