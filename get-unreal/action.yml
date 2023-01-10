@@ -15,7 +15,7 @@ runs:
     - name: Clone Unreal Engine
       shell: pwsh
       run: |
-        cd ./
+        cd C:/
         git clone https://${{ inputs.UnrealEnginePAT }}@github.com/EpicGames/UnrealEngine.git --depth 1 --branch 5.0.3-release
 
     #- name: Get cached engine
@@ -41,12 +41,12 @@ runs:
 
     - name: copy gitdepsignore file
       shell: pwsh
-      run:  Copy-Item -Path "./.gitdepsignore" -Destination ./UnrealEngine -Force          
+      run:  Copy-Item -Path "./.gitdepsignore" -Destination C:/UnrealEngine -Force          
 
     - name: Download Unreal Engine dependencies
       shell: pwsh
       run: |
-        cd ./UnrealEngine
+        cd C:/UnrealEngine
         dir
         #UE5.1 .\Engine\Binaries\DotNET\GitDependencies\win-x64\GitDependencies.exe 
         .\Engine\Binaries\DotNET\GitDependencies.exe
@@ -65,7 +65,7 @@ runs:
 
     - name: Set root ue4cli
       shell: pwsh
-      run: ue4 setroot "./UnrealEngine"
+      run: ue4 setroot "C:/UnrealEngine"
 
     - name: Build Engine
       shell: pwsh
