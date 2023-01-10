@@ -12,7 +12,7 @@ Engine/Plugins/Experimental/**
 !Engine/Plugins/Experimental/ProxyLODPlugin/**/*.lib
 
 Engine/Binaries/ThirdParty/**
-#!Engine/Binaries/ThirdParty/**/**.dll
+!Engine/Binaries/ThirdParty/**/**.dll
 #!Engine/Binaries/ThirdParty/**/**.exe
 !Engine/Binaries/ThirdParty/**/**.cs
 !Engine/Binaries/ThirdParty/DotNet/**
