@@ -6,19 +6,16 @@ Samples/**
 Templates/**
 
 
+# only downloading lib files for experimental plugins
 Engine/Plugins/Experimental/**
-!Engine/Plugins/Experimental/**/*.dll
-!Engine/Plugins/Experimental/**/*.lib
-!Engine/Plugins/Experimental/**/*.cs
-
-Engine/Plugins/Experimental/**
-Engine/Plugins/Experimental/PythonFoundationPackages/**/torch/**
+#!Engine/Plugins/Experimental/PythonScriptPlugin/**/*.lib
+#!Engine/Plugins/Experimental/ProxyLODPlugin/**/*.lib
 
 Engine/Binaries/ThirdParty/**
-!Engine/Binaries/ThirdParty/**/*.dll
-!Engine/Binaries/ThirdParty/**/*.cs
-!Engine/Binaries/ThirdParty/**/*.exe
-!Engine/Binaries/ThirdParty/DotNet/Windows/**
+!Engine/Binaries/ThirdParty/**/**.dll
+!Engine/Binaries/ThirdParty/**/**.cs
+!Engine/Binaries/ThirdParty/**/**.exe
+!Engine/Binaries/ThirdParty/DotNet/**
 
 
 Engine/Source/ThirdParty/**
@@ -29,7 +26,6 @@ Engine/Source/ThirdParty/**
 **/mac-arm64/**
 **/mac-x64/**
 **/mac/**
-**/linux/**
 **/*linux*/**
 
 *.so
@@ -41,4 +37,7 @@ Engine/Source/ThirdParty/**
 *.dsym
 *.jar
 *.debug
+*.uasset
 *.zip
+*.py
+*.pak
