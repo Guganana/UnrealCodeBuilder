@@ -16,14 +16,14 @@ Engine/Binaries/ThirdParty/**
 #!Engine/Binaries/ThirdParty/**/**.exe
 !Engine/Binaries/ThirdParty/**/**.cs
 !Engine/Binaries/ThirdParty/DotNet/**
-!Engine/Binaries/ThirdParty/DotNet/**/*.*
-
 
 Engine/Source/ThirdParty/**
 !Engine/Source/ThirdParty/**/*.cs
 #!Engine/Source/ThirdParty/**/*.dll
 #!Engine/Source/ThirdParty/**/*.lib
 #!Engine/Source/ThirdParty/**/*.exe
+
+Engine/Source/Programs/**
 
 **/mac-arm64/**
 **/mac-x64/**
