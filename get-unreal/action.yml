@@ -41,17 +41,16 @@ runs:
 
     - name: copy gitdepsignore file
       shell: pwsh
-      run:  Copy-Item -Path "./.gitdepsignore" -Destination C:/UnrealEngine -Force          
+      run:  Copy-Item -Path "./.gitdepsignore" -Destination ./UnrealEngine -Force          
 
     - name: Download Unreal Engine dependencies
       shell: pwsh
       run: |
-        cd C:/UnrealEngine
+        cd ./UnrealEngine
         dir
-        #UE5.1 .\Engine\Binaries\DotNET\GitDependencies\win-x64\GitDependencies.exe --exclude="Templates" --exclude="Engine/Content" --exclude="Engine/Extras" --exclude="FeaturePacks" --exclude="Samples" --max-retries=30
-        .\Engine\Binaries\DotNET\GitDependencies.exe --exclude="Templates" --exclude="Engine/Content" --exclude="Engine/Extras" --exclude="FeaturePacks" --exclude="Samples" --max-retries=30
-        Get-Volume
-        GenerateProjectFiles.bat
+        #UE5.1 .\Engine\Binaries\DotNET\GitDependencies\win-x64\GitDependencies.exe 
+        .\Engine\Binaries\DotNET\GitDependencies.exe
+        ./GenerateProjectFiles.bat
 
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
@@ -66,7 +65,7 @@ runs:
 
     - name: Set root ue4cli
       shell: pwsh
-      run: ue4 setroot "C:/UnrealEngine"
+      run: ue4 setroot "./UnrealEngine"
 
     - name: Build Engine
       shell: pwsh
