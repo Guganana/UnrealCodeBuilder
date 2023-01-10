@@ -21,6 +21,7 @@ Engine/Binaries/ThirdParty/**
 Engine/Source/ThirdParty/**
 !Engine/Source/ThirdParty/**/*.dll
 !Engine/Source/ThirdParty/**/*.exe
+!Engine/Source/ThirdParty/**/*.lib
 
 **/mac-arm64/**
 **/mac-x64/**
