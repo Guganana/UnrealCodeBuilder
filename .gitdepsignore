@@ -1,3 +1,4 @@
+
 Documentation/**
 Engine/Content/**
 Engine/Extras/**
@@ -5,6 +6,7 @@ FeaturePacks/**
 Samples/**
 Templates/**
 
+!protobuf.lib
 
 # only downloading lib files for experimental plugins
 Engine/Plugins/Experimental/**
