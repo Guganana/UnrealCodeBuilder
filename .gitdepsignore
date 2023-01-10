@@ -25,6 +25,7 @@ Engine/Source/ThirdParty/**
 #!Engine/Source/ThirdParty/**/*.exe
 
 !Engine/Source/ThirdParty/Protobuf/**/*.lib
+!Engine/Source/ThirdParty/libcurl/**/*.lib
 
 !Engine/Source/Programs/**
 
