@@ -16,6 +16,7 @@ Plugins/Experimental/PythonFoundationPackages/**/torch/**
 Engine/Binaries/ThirdParty/**
 !Engine/Binaries/ThirdParty/**/*.dll
 !Engine/Binaries/ThirdParty/**/*.cs
+!Engine/Binaries/ThirdParty/**/*.exe
 
 
 Engine/Source/ThirdParty/**
