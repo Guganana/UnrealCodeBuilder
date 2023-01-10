@@ -58,7 +58,7 @@ runs:
       shell: pwsh
       run: |
         Copy-Item -Path "./.gitdepsignore" -Destination ${{ inputs.UnrealStorageRoot }}/UnrealEngine -Force 
-        Get-ChildItem -Path  ${{ inputs.UnrealStorageRoot }}/UnrealEngine/Engine/Plugins -Recurse | Select -ExpandProperty FullName | Where {$_ -notlike '*/Messaging/*'} | Remove-Item -force 
+        Get-ChildItem -Path  ${{ inputs.UnrealStorageRoot }}/UnrealEngine/Engine/Plugins -Recurse | Where {$_.FullName -notlike '*/Messaging/*'} | Remove-Item -force 
 
     - name: Download Unreal Engine dependencies
       shell: pwsh
