@@ -10,22 +10,6 @@ Engine/Plugins/**
 !Engine/Plugins/**/*.lib
 !/Engine/Plugins/**/*.dll
 
-Engine/Plugins/Experimental/**
-!Engine/Plugins/Experimental/PythonScriptPlugin/**/*.lib
-!Engine/Plugins/Experimental/ProxyLODPlugin/**/*.lib
-!Engine/Plugins/Experimental/FullBodyIK/**/*.lib
-
-Engine/Binaries/ThirdParty/**
-!Engine/Binaries/**/*.dll	
-!Engine/Binaries/ThirdParty/DotNet/**/*.dll	
-
-
-Engine/Source/ThirdParty/**
-!Engine/Source/ThirdParty/**/*.lib
-!Engine/Source/ThirdParty/Intel/**/*.dll
-!Engine/Source/ThirdParty/Windows/**/*.exe
-
-!Engine/Source/Programs/**
 
 **/mac-arm64/**
 **/mac-x64/**
