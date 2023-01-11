@@ -96,4 +96,4 @@ runs:
 
     - name: Build Engine
       shell: pwsh
-      run: ue4 build-target UnrealEditor Development -NoPCH -NoSharedPCH -DisableUnity
+      run: ue4 build-target UnrealEditor Development #-NoPCH -NoSharedPCH -DisableUnity
