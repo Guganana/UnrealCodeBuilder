@@ -16,11 +16,14 @@ Engine/Plugins/Experimental/**
 Engine/Binaries/**
 !Engine/Binaries/**/*.dll	
 !Engine/Binaries/**/*.exe	
+!Engine/Binaries/ThirdParty/DotNet/**/*.dll	
 
 Engine/Source/ThirdParty/**
 !Engine/Source/ThirdParty/**/*.lib
 !Engine/Source/ThirdParty/**/*.dll
 !Engine/Source/ThirdParty/**/*.exe
+!Engine/Source/ThirdParty/Intel/**/*.dll
+!Engine/Source/ThirdParty/Windows/**/*.exe
 
 !Engine/Source/Programs/**
 
