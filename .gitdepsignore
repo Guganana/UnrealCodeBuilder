@@ -11,20 +11,19 @@ Engine/Plugins/**
 !/Engine/Plugins/**/*.dll
 
 Engine/Plugins/Experimental/**
-!Engine/Plugins/Experimental/PythonScriptPlugin/**/*.lib
-!Engine/Plugins/Experimental/ProxyLODPlugin/**/*.lib
-!Engine/Plugins/Experimental/FullBodyIK/**/*.lib
+!Engine/Plugins/Experimental/**/*.lib
 
 Engine/Binaries/ThirdParty/**
 !Engine/Binaries/**/*.dll	
-!Engine/Binaries/ThirdParty/DotNet/**/*.dll	
+!Engine/Binaries/**/*.exe	
 
 
 Engine/Source/ThirdParty/**
 !Engine/Source/ThirdParty/**/*.lib
-!Engine/Source/ThirdParty/Intel/**/*.dll
-!Engine/Source/ThirdParty/Windows/**/*.exe
-
+# can probably remove the one below
+!**/vcpkg/**/*.lib
+!Engine/Source/ThirdParty/**/*.dll
+!Engine/Source/ThirdParty/**/*.exe
 !Engine/Source/Programs/**
 
 **/mac-arm64/**
@@ -32,7 +31,6 @@ Engine/Source/ThirdParty/**
 **/mac/**
 **/*linux*/**
 
-!**/vcpkg/**/*.lib
 
 *.so
 *.so.*
