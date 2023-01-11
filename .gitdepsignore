@@ -16,7 +16,7 @@ Engine/Plugins/Experimental/**
 Engine/Binaries/ThirdParty/**
 !Engine/Binaries/**/*.dll	
 !Engine/Binaries/**/*.exe	
-
+!Engine/Binaries/ThirdParty/**/*.dll	
 
 Engine/Source/ThirdParty/**
 !Engine/Source/ThirdParty/**/*.lib
