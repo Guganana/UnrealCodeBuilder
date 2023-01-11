@@ -7,8 +7,8 @@ Samples/**
 Templates/**
 
 Engine/Plugins/**
-!Engine/Plugins/**/**.lib
-!/Engine/Plugins/**/**.dll
+!Engine/Plugins/**/*.lib
+!/Engine/Plugins/**/*.dll
 
 Engine/Plugins/Experimental/**
 !Engine/Plugins/Experimental/**/*.lib
@@ -17,15 +17,15 @@ Engine/Binaries/ThirdParty/**
 !Engine/Binaries/**/*.dll	
 !Engine/Binaries/**/*.exe	
 !Engine/Binaries/ThirdParty/**/*.dll	
+!Engine/Binaries/ThirdParty/DotNet/**/*.dll	
 
 Engine/Source/ThirdParty/**
 !Engine/Source/ThirdParty/**/*.lib
-# can probably remove the one below
-!**/vcpkg/**/*.lib
 !Engine/Source/ThirdParty/**/*.dll
 !Engine/Source/ThirdParty/**/*.exe
 !Engine/Source/ThirdParty/Intel/**/*.dll
 !Engine/Source/ThirdParty/Windows/**/*.exe
+
 !Engine/Source/Programs/**
 
 **/mac-arm64/**
@@ -33,6 +33,7 @@ Engine/Source/ThirdParty/**
 **/mac/**
 **/*linux*/**
 
+!**/vcpkg/**/*.lib
 
 *.so
 *.so.*
