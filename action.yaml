@@ -21,12 +21,17 @@ inputs:
     required: false
     type: string
     default: ""
+  skipCheckout:
+    required: false
+    type: boolean
+    default: false
     
 
 runs:
   using: "composite"
   steps:
     - uses: actions/checkout@v3
+      if: ${{ !inputs.skipCheckout }}
         
     # You can fork our repo and remove this step if you really want to stay anonymous
     - name: Sending one-time use telemetry
