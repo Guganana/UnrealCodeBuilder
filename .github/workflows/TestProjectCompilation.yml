@@ -26,6 +26,6 @@ jobs:
           
       - uses: "./"
         with:
-          enginePath: "{{ $secrets.ENGINE_DOWNLOAD_PATH }}"
+          enginePath: {{ $secrets.ENGINE_DOWNLOAD_PATH }}
           projectPath: "./EmptyProjectRoot"
           enginePathIsDownload: true
