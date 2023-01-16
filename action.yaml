@@ -62,10 +62,13 @@ runs:
       shell: pwsh
       if: ${{ !inputs.enginePathIsDownload }}
       run:  Copy-Item -Path "${{ inputs.enginePath }}" -Destination "${{ github.action_path }}/Engine.7z" -Force
-      
+  
     - name: Extract Unreal Engine image
       shell: pwsh
       run: ${{ github.action_path }}/7za.exe x "${{ github.action_path }}/Engine.7z" -o${{ github.action_path }}/Engine
+
+    - name: Install msbuild
+      uses: microsoft/setup-msbuild@v1.1
 
     - uses: actions/setup-python@v4
       with:
