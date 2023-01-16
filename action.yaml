@@ -67,7 +67,7 @@ runs:
       shell: pwsh
       run: ${{ github.action_path }}/7za.exe x "${{ github.action_path }}/Engine.7z" -o${{ github.action_path }}/Engine
 
-    - uses: microsoft/setup-dotnet@v3
+    - uses: actions/setup-dotnet@v3
 
     - uses: actions/setup-python@v4
       with:
