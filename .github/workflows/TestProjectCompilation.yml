@@ -23,10 +23,10 @@ jobs:
       - uses: actions/checkout@v3
         with:
           repository: guganana/EmptyProject
-          path: "./EmptyProjectRoot"
+          path: "D:/EmptyProjectRoot"
           
-      - uses: "./TestBuilder"
+      - uses: "./"
         with:
           enginePath: "${{ secrets.ENGINE_DOWNLOAD_PATH }}"
-          projectPath: "./EmptyProjectRoot"
+          projectPath: "D:/EmptyProjectRoot"
           enginePathIsDownload: true
