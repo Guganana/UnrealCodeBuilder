@@ -7,7 +7,7 @@ inputs:
   enginePathIsDownload:
     type: boolean
     required: true
-  pluginPath:
+  projectPath:
     required: true
     type: string
   engineCacheId:
@@ -79,7 +79,7 @@ runs:
       run: |
         $compilePath = "${{ github.action_path }}/Plugins/CompiledPlugin"
         New-Item $compilePath -itemType Directory
-        Copy-Item -Path "${{ inputs.pluginPath }}/*" -Destination $compilePath -Recurse -Force
+        Copy-Item -Path "${{ inputs.projectPath }}/*" -Destination $compilePath -Recurse -Force
 
     - name: Build plugin
       shell: pwsh
