@@ -50,7 +50,7 @@ runs:
         $stream = [IO.MemoryStream]::new([byte[]][char[]]$enginePath)
         $enginePathSHA = "$(Get-FileHash -InputStream $stream -Algorithm SHA256)"        
         $engineSHA = "$enginePathSHA+${{ inputs.engineCacheId }}"
-        echo "ENGINE_SHA=$engineSHA" >> $ $GITHUB_OUTPUT        
+        echo "ENGINE_SHA=$engineSHA" >> $GITHUB_OUTPUT        
         
     # You can fork our repo and remove this step if you really want to stay anonymous
     - name: Sending one-time use telemetry
