@@ -25,8 +25,14 @@ inputs:
     required: false
     type: boolean
     default: false
+  buildAction:
+    required: false
+    type: string
+    default: "build"
+  publishId:
+    required: false
+    type: string
     
-
 runs:
   using: "composite"
   steps:
@@ -38,8 +44,9 @@ runs:
       shell: pwsh
       continue-on-error: true
       run: |
+        cd ${{ github.action_path }}
         $Agent = "${{ github.repository }}";
-        $BuilderVersion = "1.0";
+        $BuilderVersion = git rev-parse HEAD;
         $body = "{\""pluginName\"": \""CodeBuilder\"", \""appId\"":\""$Agent\"", \""versionFriendly\"":\""$BuilderVersion\"" }";
         curl.exe -H "Content-Type: application/json" -H "User-Agent: $Agent"--request POST -d $body https://api.codebuilder.guganana.com/api/usage;
         
@@ -90,7 +97,7 @@ runs:
       shell: pwsh
       run: |
         cd "${{ github.action_path }}/Plugins/CompiledPlugin"; 
-        ue4 build ${{ inputs.buildFlags }}
+        ue4 ${{ inputs.buildAction }} ${{ inputs.buildFlags }}
       
     - name: Move built plugin into output folder
       shell: pwsh
@@ -99,3 +106,10 @@ runs:
         New-Item ${{ inputs.outputFolder }} -itemType Directory
         Copy-Item -Path "$compilePath/*" -Destination ${{ inputs.outputFolder }} -Recurse -Force
         dir ${{ inputs.outputFolder }}
+        
+    - name: Publish build artifact
+      if: ${{ inputs.publishId }}
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ inputs.publishId }}
+        path: ${{ inputs.outputFolder }}
