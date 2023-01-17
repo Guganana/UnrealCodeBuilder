@@ -82,9 +82,9 @@ runs:
       shell: pwsh
       run: |    
         $headers = @{ 
-          'x-guganana-key'=${{ inputs.gugananaKey }};
-          'x-unreal-version'=${{ inputs.unrealVersion }}
-          'x-owner'=${{ github.repository }}
+          'x-guganana-key'='${{ inputs.gugananaKey }}';
+          'x-unreal-version'='${{ inputs.unrealVersion }}';
+          'x-owner'='${{ github.repository }}'
         };
         Invoke-Webrequest -URI  ${{ inputs.enginePath }} -Headers $headers -OutFile ./Engine.7z
         
