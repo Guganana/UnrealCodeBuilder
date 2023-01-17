@@ -42,7 +42,7 @@ runs:
     - uses: actions/checkout@v3
       if: ${{ !inputs.skipCheckout }}
       
-   - name: Write usefull information into environment
+    - name: Write usefull information into environment
       run: |
         $enginePath = "${{ inputs.enginePath }}"
         $stream = [IO.MemoryStream]::new([byte[]][char[]]$enginePath)
