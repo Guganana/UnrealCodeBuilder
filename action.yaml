@@ -112,6 +112,7 @@ runs:
     - name: Create compilation working directory and move targeted plugin
       shell: pwsh
       run: |
+        dir
         $compilePath = "${{ github.action_path }}/Plugins/CompiledPlugin"
         New-Item $compilePath -itemType Directory
         Copy-Item -Path "${{ inputs.projectPath }}/*" -Destination $compilePath -Recurse -Force
