@@ -112,6 +112,9 @@ runs:
     - name: Create compilation working directory and move targeted plugin
       shell: pwsh
       run: |
+        echo "hey";
+        echo ${{ github.workspace }};
+        dir ${{ github.workspace }};
         cd ${{ github.workspace }};
         dir;
         $compilePath = "${{ github.action_path }}/Plugins/CompiledPlugin"
