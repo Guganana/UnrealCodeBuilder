@@ -29,7 +29,7 @@ inputs:
     required: false
     type: string
     default: "build"
-  publishId:
+  artifactId:
     required: false
     type: string
     
@@ -108,8 +108,8 @@ runs:
         dir ${{ inputs.outputFolder }}
         
     - name: Publish build artifact
-      if: ${{ inputs.publishId }}
+      if: ${{ inputs.artifactId }}
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ inputs.publishId }}
+        name: ${{ inputs.artifactId }}
         path: ${{ inputs.outputFolder }}
