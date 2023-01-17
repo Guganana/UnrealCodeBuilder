@@ -85,7 +85,8 @@ runs:
           'x-unreal-version'='${{ inputs.unrealVersion }}';
           'x-owner'='${{ github.repository }}'
         };
-        Invoke-Webrequest -URI  ${{ inputs.enginePath }} -Headers $headers -OutFile ./Engine.7z -MaximumRedirection 5
+        $res = Invoke-Webrequest -URI  ${{ inputs.enginePath }} -Headers $headers -OutFile ./Engine.7z -MaximumRedirection 5
+        echo $res
         
     - name: Copy compressed engine image to the working directory
       shell: pwsh
