@@ -71,7 +71,7 @@ runs:
       if: ${{ inputs.enginePathIsDownload }}
       with:
         path: ${{ github.action_path }}/Engine.7z
-        key: "${{ ${{ steps.globals.outputs.ENGINE_SHA }}"
+        key: "${{ steps.globals.outputs.ENGINE_SHA }}"
 
     - name: Download Unreal Engine image from subscription
       if: ${{ inputs.GugananaKey && !steps.cached-engine.outputs.cache-hit }}
