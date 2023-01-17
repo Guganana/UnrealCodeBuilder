@@ -42,14 +42,15 @@ runs:
     - uses: actions/checkout@v3
       if: ${{ !inputs.skipCheckout }}
       
-    - name: Write usefull information into environment
+    - name: Write usefull information into global
+      id: globals
       shell: pwsh
       run: |
         $enginePath = "${{ inputs.enginePath }}"
         $stream = [IO.MemoryStream]::new([byte[]][char[]]$enginePath)
         $enginePathSHA = "$(Get-FileHash -InputStream $stream -Algorithm SHA256)"        
         $engineSHA = "$enginePathSHA+${{ inputs.engineCacheId }}"
-        echo "ENGINE_SHA=$engineSHA" >> $GITHUB_ENV        
+        echo "ENGINE_SHA=$engineSHA" >> $ $GITHUB_OUTPUT        
         
     # You can fork our repo and remove this step if you really want to stay anonymous
     - name: Sending one-time use telemetry
@@ -70,7 +71,7 @@ runs:
       if: ${{ inputs.enginePathIsDownload }}
       with:
         path: ${{ github.action_path }}/Engine.7z
-        key: "${{ env.ENGINE_SHA }}"
+        key: "${{ ${{ steps.globals.outputs.ENGINE_SHA }}"
 
     - name: Download Unreal Engine image from subscription
       if: ${{ inputs.GugananaKey && !steps.cached-engine.outputs.cache-hit }}
