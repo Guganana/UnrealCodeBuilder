@@ -43,6 +43,7 @@ runs:
       if: ${{ !inputs.skipCheckout }}
       
     - name: Write usefull information into environment
+      shell: pwsh
       run: |
         $enginePath = "${{ inputs.enginePath }}"
         $stream = [IO.MemoryStream]::new([byte[]][char[]]$enginePath)
