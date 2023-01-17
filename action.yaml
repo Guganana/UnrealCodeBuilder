@@ -32,21 +32,32 @@ inputs:
   artifactId:
     required: false
     type: string
+  gugananaKey:
+    required: false
+    type: string
     
 runs:
   using: "composite"
   steps:
     - uses: actions/checkout@v3
       if: ${{ !inputs.skipCheckout }}
+      
+   - name: Write usefull information into environment
+      run: |
+        $enginePath = "${{ inputs.enginePath }}"
+        $stream = [IO.MemoryStream]::new([byte[]][char[]]$enginePath)
+        $enginePathSHA = "$(Get-FileHash -InputStream $stream -Algorithm SHA256)"        
+        $engineSHA = "$enginePathSHA+${{ inputs.engineCacheId }}"
+        echo "ENGINE_SHA=$engineSHA" >> $GITHUB_ENV        
         
     # You can fork our repo and remove this step if you really want to stay anonymous
     - name: Sending one-time use telemetry
       shell: pwsh
       continue-on-error: true
       run: |
-        cd ${{ github.action_path }}
         $Agent = "${{ github.repository }}";
         $BuilderVersion = git rev-parse HEAD;
+        cd ${{ github.action_path }}
         $body = "{\""pluginName\"": \""CodeBuilder\"", \""appId\"":\""$Agent\"", \""versionFriendly\"":\""$BuilderVersion\"" }";
         curl.exe -H "Content-Type: application/json" -H "User-Agent: $Agent"--request POST -d $body https://api.codebuilder.guganana.com/api/usage;
         
@@ -58,16 +69,26 @@ runs:
       if: ${{ inputs.enginePathIsDownload }}
       with:
         path: ${{ github.action_path }}/Engine.7z
-        key: "${{ inputs.enginePath }}+${{ inputs.engineCacheId }}"
+        key: "${{ env.ENGINE_SHA }}"
 
+    - name: Download Unreal Engine image from subscription
+      if: ${{ inputs.GugananaKey && !steps.cached-engine.outputs.cache-hit }}
+      shell: pwsh
+      run: |
+        $headers = @{ 
+          'x-guganana-key'=${{ inputs.gugananaKey }};
+          'x-owner'=${{ github.repository }}
+        };
+        Invoke-Webrequest -URI {{ secrets.UNREALCODEBUILDER_ENGINE_ENDPOINT }} -Headers $headers -OutFile ./Engine.7z
+      
     - name: Download Unreal Engine image from the web link
-      if: ${{ inputs.enginePathIsDownload && !steps.cached-engine.outputs.cache-hit }}
+      if: ${{ !inputs.GugananaKey && inputs.enginePathIsDownload && !steps.cached-engine.outputs.cache-hit }}
       shell: pwsh
       run: Invoke-Webrequest -URI ${{ inputs.enginePath }} -OutFile ${{ github.action_path }}/Engine.7z
         
     - name: Copy compressed engine image to the working directory
       shell: pwsh
-      if: ${{ !inputs.enginePathIsDownload }}
+      if: ${{ !inputs.enginePathIsDownload && !inputs.GugananaKey }}
       run:  Copy-Item -Path "${{ inputs.enginePath }}" -Destination "${{ github.action_path }}/Engine.7z" -Force
   
     - name: Extract Unreal Engine image
