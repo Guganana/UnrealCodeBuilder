@@ -61,9 +61,8 @@ runs:
       shell: pwsh
       continue-on-error: true
       run: |
-        cd ${{ github.action_path }}
         $Agent = "${{ github.repository }}";
-        $BuilderVersion = git rev-parse HEAD;
+        $BuilderVersion = "1.0";
         $body = "{\""pluginName\"": \""CodeBuilder\"", \""appId\"":\""$Agent\"", \""versionFriendly\"":\""$BuilderVersion\"" }";
         curl.exe -H "Content-Type: application/json" -H "User-Agent: $Agent"--request POST -d $body https://api.codebuilder.guganana.com/api/usage;
         
