@@ -70,7 +70,7 @@ runs:
     # Make sure to use https://github.com/Guganana/MinimalUE to create a Unreal Engine compressed image so it is around 100MB rather than 50+GB
     - name: Get cached engine
       id: cached-engine
-      uses: actions/cache@latest
+      uses: actions/cache@main
       if: ${{ inputs.enginePathIsDownload }}
       with:
         path: ${{ github.action_path }}/Engine.7z
@@ -139,7 +139,7 @@ runs:
     
     - if: ${{ inputs.cacheExportId }}
       name: Export build into cache
-      uses: actions/cache/save@latest
+      uses: actions/cache/save@main
       with:
         path: ${{ inputs.outputFolder }}
         key: ${{ inputs.cacheExportId }}
