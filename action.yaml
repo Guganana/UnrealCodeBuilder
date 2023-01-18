@@ -135,7 +135,7 @@ runs:
         $compilePath = "${{ github.action_path }}/Plugins/CompiledPlugin"
         New-Item ${{ inputs.outputFolder }} -itemType Directory
         Copy-Item -Path "$compilePath/*" -Destination ${{ inputs.outputFolder }} -Recurse -Force
-        dir ${{ inputs.outputFolder 
+        dir ${{ inputs.outputFolder  }}
     
     - if: ${{ inputs.cacheExportId }}
       name: Export build into cache
