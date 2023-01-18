@@ -28,8 +28,8 @@ inputs:
   buildAction:
     required: false
     type: string
-    default: "build"
-  artifactId:
+    default: "build  
+  cacheExportId:
     required: false
     type: string
   gugananaKey:
@@ -135,11 +135,12 @@ runs:
         $compilePath = "${{ github.action_path }}/Plugins/CompiledPlugin"
         New-Item ${{ inputs.outputFolder }} -itemType Directory
         Copy-Item -Path "$compilePath/*" -Destination ${{ inputs.outputFolder }} -Recurse -Force
-        dir ${{ inputs.outputFolder }}
-        
-    - name: Publish build artifact
-      if: ${{ inputs.artifactId }}
-      uses: actions/upload-artifact@v3
+        dir ${{ inputs.outputFolder 
+    
+    - if: ${{ inputs.cacheExportId }}
+      name: Export build into cache
+      uses: actions/cache/save@v3
       with:
-        name: ${{ inputs.artifactId }}
         path: ${{ inputs.outputFolder }}
+        key: ${{ inputs.cacheExportId }}
+        
