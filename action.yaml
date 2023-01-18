@@ -43,7 +43,7 @@ runs:
   using: "composite"
   steps:
     - uses: actions/checkout@v3
-      if: ${{ !inputs.skipCheckout }}
+      if: ${{ !inputs.skipCheckout }}cac
       
     - name: Write usefull information into global
       id: globals
@@ -143,4 +143,5 @@ runs:
       with:
         path: ${{ inputs.outputFolder }}
         key: ${{ inputs.cacheExportId }}
+        enableCrossOsArchive: true
         
