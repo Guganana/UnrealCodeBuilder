@@ -28,7 +28,7 @@ inputs:
   buildAction:
     required: false
     type: string
-    default: "build  
+    default: "build"
   cacheExportId:
     required: false
     type: string
