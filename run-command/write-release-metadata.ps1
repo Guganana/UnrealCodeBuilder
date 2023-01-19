@@ -7,8 +7,8 @@ $UPlugin = Get-ChildItem -Filter "$pluginName.uplugin" -Recurse -Force
 
 foreach ($Child in $Results)
 {
-    (Get-Content $Child.FullName) -Replace 'NO_VERSION', $FriendlyVersion | Set-Content $Child.FullName
-    (Get-Content $Child.FullName) -Replace 'NO_SHA', $env:SHA.Substring(0, 7) | Set-Content $Child.FullName
+    (Get-Content $Child.FullName) -Replace 'NO_VERSION', $env:friendlyVersion | Set-Content $Child.FullName
+    (Get-Content $Child.FullName) -Replace 'NO_SHA', $env:releaseSHA.Substring(0, 7) | Set-Content $Child.FullName
     (Get-Content $Child.FullName) -Replace "FDateTime::Now\(\)", "FDateTime($env:releaseDate)" | Set-Content $Child.FullName
 }
 
