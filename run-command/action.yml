@@ -19,5 +19,5 @@ runs:
       shell: pwsh
       run: |
         cd ${{ inputs.projectPath }}
-        ${{ github.action_path }}/${{ inputs.command }}.ps1 ${{ inputs.args }}
+        & "${{ github.action_path }}/${{ inputs.command }}.ps1" "${{ inputs.args }}"
       
