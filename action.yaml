@@ -113,10 +113,6 @@ runs:
       shell: pwsh
       run: |
         echo "hey";
-        echo ${{ github.workspace }};
-        dir ${{ github.workspace }};
-        cd ${{ github.workspace }};
-        dir;
         $compilePath = "${{ github.action_path }}/Plugins/CompiledPlugin"
         New-Item $compilePath -itemType Directory
         Copy-Item -Path "${{ inputs.projectPath }}/*" -Destination $compilePath -Recurse -Force
@@ -131,7 +127,6 @@ runs:
     - name: Move built plugin into output folder
       shell: pwsh
       run: |
-        cd ${{ github.workspace }}
         $compilePath = "${{ github.action_path }}/Plugins/CompiledPlugin"
         New-Item ${{ inputs.outputFolder }} -itemType Directory
         Copy-Item -Path "$compilePath/*" -Destination ${{ inputs.outputFolder }} -Recurse -Force
