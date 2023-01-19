@@ -13,7 +13,7 @@ $VersionNumber = "$UnixTimestamp"
 $UPlugin = Get-ChildItem -Filter "*.uplugin" -Recurse -Force
 foreach ($Child in $UPlugin)
 {
-    (Get-Content $Child.FullName) -Replace 'DEV_VERSION_NAME', $env:releaseName | Set-Content $Child.FullName
+    (Get-Content $Child.FullName) -Replace 'DEV_VERSION_NAME', $env:releaseVersion | Set-Content $Child.FullName
     (Get-Content $Child.FullName) -Replace '123456789', $VersionNumber | Set-Content $Child.FullName
     (Get-Content $Child.FullName) -Replace 'ENGINE_VERSION', "$env:UEVersion" | Set-Content $Child.FullName
 }
