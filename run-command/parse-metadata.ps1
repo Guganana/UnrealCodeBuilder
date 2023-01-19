@@ -1,4 +1,4 @@
-params($UEVersion)
+param($UEVersion)
 
 function SetEnvVar( $name, $value ) {
 	Invoke-Expression "`$env:$name='$value'"
