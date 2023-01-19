@@ -1,9 +1,5 @@
 
-$SHA = git rev-parse HEAD
-$VERSION_DATE = "FDateTime($(Get-Date -Format "yyyy, M, d"))"
-
 $Results = Get-ChildItem -Filter PluginInformation.h -Recurse -Force
-
 foreach ($Child in $Results)
 {
     (Get-Content $Child.FullName) -Replace 'NO_VERSION', $env:friendlyVersion | Set-Content $Child.FullName
