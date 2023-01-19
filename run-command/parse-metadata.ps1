@@ -1,4 +1,4 @@
-param($UEVersion)
+param ($UEVersion)
 
 function SetEnvVar( $name, $value ) {
 	Invoke-Expression "`$env:$name='$value'"
@@ -14,6 +14,6 @@ Get-ChildItem -Path ./.metadata | ForEach-Object {
 
 SetEnvVar "releaseSHA" "$(git rev-parse HEAD)"
 SetEnvVar "releaseDate" "$(Get-Date -Format "yyyy, M, d")"
-SetEnvVar "UEVersion" $UEVersion
+SetEnvVar "UEVersion" "$UEVersion"
 SetEnvVar "releaseVersion" (Invoke-Expression """$env:releaseVersionFormat""")
 SetEnvVar "releaseName" (Invoke-Expression """$env:releaseNameFormat""")
