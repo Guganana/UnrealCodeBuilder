@@ -18,4 +18,5 @@ foreach ($Child in $UPlugin)
 {
     (Get-Content $Child.FullName) -Replace 'DEV_VERSION_NAME', $env:releaseName | Set-Content $Child.FullName
     (Get-Content $Child.FullName) -Replace '123456789', $VersionNumber | Set-Content $Child.FullName
+    (Get-Content $Child.FullName) -Replace 'ENGINE_VERSION', "${{ matrix.UEVersion }}" | Set-Content $Child.FullName
 }
