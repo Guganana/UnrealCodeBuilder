@@ -1,0 +1,19 @@
+name: UnrealCodeBuild
+
+inputs:
+  projectPath:
+    required: true
+    type: string
+  command:
+    required: true
+    type: string
+    
+runs:
+  using: "composite"
+  steps:
+    - name: Running command '${{ inputs.command }}'
+      shell: pwsh
+      run: |
+        cd ${{ inputs.projectPath }}
+        ${{ github.action_path }}/${{ inputs.command }}.ps1
+      
