@@ -43,7 +43,7 @@ runs:
   using: "composite"
   steps:
     - uses: actions/checkout@v3
-      if: ${{ !inputs.skipCheckout }}cac
+      if: ${{ !inputs.skipCheckout }}
       
     - name: Write usefull information into global
       id: globals
