@@ -3,7 +3,6 @@ $SHA = git rev-parse HEAD
 $VERSION_DATE = "FDateTime($(Get-Date -Format "yyyy, M, d"))"
 
 $Results = Get-ChildItem -Filter PluginInformation.h -Recurse -Force
-$UPlugin = Get-ChildItem -Filter "$pluginName.uplugin" -Recurse -Force
 
 foreach ($Child in $Results)
 {
@@ -14,6 +13,8 @@ foreach ($Child in $Results)
 
 $UnixTimestamp = [int][double]::Parse((Get-Date -UFormat %s))
 $VersionNumber = "$UnixTimestamp"
+
+$UPlugin = Get-ChildItem -Filter "*.uplugin" -Recurse -Force
 foreach ($Child in $UPlugin)
 {
     (Get-Content $Child.FullName) -Replace 'DEV_VERSION_NAME', $env:releaseName | Set-Content $Child.FullName
