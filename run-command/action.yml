@@ -7,6 +7,10 @@ inputs:
   command:
     required: true
     type: string
+  args:
+    required: false
+    type: string
+    default: ""
     
 runs:
   using: "composite"
@@ -15,5 +19,5 @@ runs:
       shell: pwsh
       run: |
         cd ${{ inputs.projectPath }}
-        ${{ github.action_path }}/${{ inputs.command }}.ps1
+        ${{ github.action_path }}/${{ inputs.command }}.ps1 ${{ inputs.args }}
       
