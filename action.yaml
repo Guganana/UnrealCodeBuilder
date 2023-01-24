@@ -107,7 +107,7 @@ runs:
 
     - name: Set root ue4cli
       shell: pwsh
-      run: ue4 setroot "${{ github.action_path }}/Engine/${{ inputs.unrealVersion }}"
+      run: ue4 setroot "${{ github.action_path }}/Engine"
 
     - name: Create compilation working directory and move targeted plugin
       shell: pwsh
