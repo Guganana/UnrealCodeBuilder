@@ -10,9 +10,9 @@ inputs:
   projectPath:
     required: true
     type: string
-  engineVersion:
-    type: string
+  unrealVersion:
     required: true
+    type: string
   engineCacheId:
     required: false
     type: string
@@ -36,9 +36,6 @@ inputs:
     required: false
     type: string
   gugananaKey:
-    required: false
-    type: string
-  unrealVersion:
     required: false
     type: string
     
@@ -110,7 +107,7 @@ runs:
 
     - name: Set root ue4cli
       shell: pwsh
-      run: ue4 setroot "${{ github.action_path }}/Engine/${{ inputs.engineVersion }}"
+      run: ue4 setroot "${{ github.action_path }}/Engine/${{ inputs.unrealVersion }}"
 
     - name: Create compilation working directory and move targeted plugin
       shell: pwsh
