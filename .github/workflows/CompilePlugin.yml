@@ -1,0 +1,127 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Verify Build
+
+on:
+  workflow_call:
+    secrets:
+      GUGANANA_BUILD_KEY:
+        required: false
+    inputs:
+      projectArtifactName:
+        required: true
+        type: string
+      unrealVersions:
+        required: false
+        type: string
+        default: "['4.27', '5.0', '5.1']"
+      prepareForMarketplace:
+        required: false
+        type: boolean
+        default: false
+      exportCompilationArtifact:
+        required: false
+        type: boolean
+        default: false
+ 
+env:
+  projectDir: /source
+  compiledDir: /compiled
+      
+jobs:
+
+  builder:
+    strategy:
+      matrix:
+        UEVersion: ${{ fromJson(inputs.unrealVersions) }}
+    name: Build for Windows - UE ${{ matrix.UEVersion }}
+    runs-on: windows-latest
+    steps:        
+      - uses: actions/download-artifact@v3
+        with:
+          name: "${{ inputs.projectArtifactName }}"
+          path: ${{ env.projectDir }}
+          
+      - uses: guganana/UnrealCodeBuilder/run-command@main
+        with:
+          projectPath: ${{ env.projectDir }}
+          command: "parse-metadata"
+          args: "${{ matrix.UEVersion }}"
+                  
+      - uses: guganana/UnrealCodeBuilder/run-command@main
+        with:
+          projectPath: ${{ env.projectDir }}
+          command: "write-release-metadata"
+          
+      - name: Produce cache keys
+        shell: pwsh
+        run: |   
+          $SHA = $env:releaseSHA.Substring(0,7);
+          $cacheKey_compiled =  "$env:releaseName", "Win64", "$env:UEVersion", "$SHA" -join "_";
+          $cacheKey_marketplace = "$env:releaseName", "Marketplace", "$env:UEVersion", "$SHA" -join "_";      
+          echo "cacheKey_compiled=$cacheKey_compiled" >> $env:GITHUB_ENV
+          echo "cacheKey_marketplace=$cacheKey_marketplace">> $env:GITHUB_ENV
+      
+      - name: Debug env variables
+        shell: pwsh
+        run: | 
+          echo "$env:releaseName"
+          echo "$env:releaseSHA"
+          echo "$env:cacheKey_compiled"
+          echo "$env:cacheKey_marketplace"
+          echo "$env:projectDir"
+          echo "$env:compiledDir"
+          echo "$env:friendlyVersion"
+
+      - uses: guganana/UnrealCodeBuilder@main
+        with:
+          enginePath: "{{ secrets.UNREALCODEBUILDER_ENGINE_ENDPOINT }}"
+          unrealVersion: ${{ matrix.UEVersion }}
+          enginePathIsDownload: true
+          cacheExportId: ${{ env.cacheKey_compiled }}
+          projectPath: ${{ env.projectDir }}
+          outputFolder: ${{ env.compiledDir }}
+          gugananaKey: ${{ secrets.GUGANANA_BUILD_KEY }}
+    
+      - if: ${{ inputs.exportCompilationArtifact }}
+        name: Upload compiled binaries artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: "${{ env.releaseName }}-Precompiled"
+          path: ${{ env.compiledDir }}
+          retention-days: 1        
+       
+      
+      - if: ${{ inputs.prepareForMarketplace }}
+        name: clean
+        uses: guganana/UnrealCodeBuilder/run-command@main
+        with:
+          projectPath: ${{ env.compiledDir }}
+          command: "marketplace-clean"          
+
+      - if: ${{ inputs.prepareForMarketplace }}
+        name: Export cleaned project into cache
+        uses: actions/cache/save@v3.2.3
+        with:
+          path: ${{ env.compiledDir }}
+          key: ${{ env.cacheKey_marketplace }}
+
+      - if: ${{ inputs.prepareForMarketplace }}
+        name: Upload marketplace artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: "${{ env.releaseName }}-Marketplace"
+          path: ${{ env.compiledDir }}
+          retention-days: 1
+          
+  Cleanup:
+    name: Cleanup
+    if: ${{ always() }}
+    runs-on : ubuntu-latest
+    needs: ['builder']
+    steps:
+
+      - uses: geekyeggo/delete-artifact@dc8092f14c4245ef6a3501b1669b171c12899167
+        with:
+            name: "${{ inputs.projectArtifactName }}"
+  
