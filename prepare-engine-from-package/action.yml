@@ -17,7 +17,7 @@ runs:
     - name: Install Engine nuget package
       shell: pwsh
       run: |
-        dotnet nuget add source --username ${{ github.actor }} --password ${{ GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/guganana/index.json"
+        dotnet nuget add source --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/guganana/index.json"
         nuget install MinimalUEBuilds -OutputDirectory "${{ inputs.outputDir }}"
         dir "${{ inputs.outputDir }}"
         
