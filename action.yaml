@@ -68,13 +68,13 @@ runs:
         
     # Attempt to retrieve a cached version of the engine image so we can spare bandwith and improve step speeds
     # Make sure to use https://github.com/Guganana/MinimalUE to create a Unreal Engine compressed image so it is around 100MB rather than 50+GB
-    - name: Get cached engine
-      id: cached-engine
-      uses: actions/cache@v3.2.3
-      if: ${{ inputs.enginePathIsDownload }}
-      with:
-        path: ${{ github.action_path }}/Engine.7z
-        key: "${{ steps.globals.outputs.ENGINE_SHA }}"
+    #- name: Get cached engine
+    #  id: cached-engine
+     # uses: actions/cache@v3.2.3
+     # if: ${{ inputs.enginePathIsDownload }}
+     # with:
+     #   path: ${{ github.action_path }}/Engine.7z
+     #   key: "${{ steps.globals.outputs.ENGINE_SHA }}"
       
     - name: Download Unreal Engine image from the web link
       if: ${{ inputs.enginePathIsDownload && !steps.cached-engine.outputs.cache-hit }}
