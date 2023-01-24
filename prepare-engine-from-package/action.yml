@@ -1,0 +1,23 @@
+
+name: PrepareEngineFromPackage
+
+inputs:
+  outputDir:
+    required: true
+    type: string
+    
+runs:
+  using: "composite"
+  steps:
+
+    - uses: actions/setup-dotnet@v3
+    with:
+      dotnet-version: '3.1.x'
+      
+    - name: Install Engine nuget package
+      shell: pwsh
+      run: |
+        dotnet nuget add source --username ${{ github.actor }} --password ${{ GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/guganana/index.json"
+        nuget install MinimalUEBuilds -OutputDirectory "${{ inputs.outputDir }}"
+        dir "${{ inputs.outputDir }}"
+        
