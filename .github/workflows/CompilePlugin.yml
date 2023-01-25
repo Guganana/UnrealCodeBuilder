@@ -23,6 +23,10 @@ on:
         required: false
         type: boolean
         default: false
+      artifactRetentionTime:
+        required: false
+        type: number
+        default: 1
  
 env:
   projectDir: /source
@@ -112,7 +116,7 @@ jobs:
         with:
           name: "${{ env.releaseName }}-Marketplace"
           path: ${{ env.compiledDir }}
-          retention-days: 1
+          retention-days: ${{ inputs.artifactRetentionTime }}
           
   Cleanup:
     name: Cleanup
