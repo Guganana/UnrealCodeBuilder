@@ -7,6 +7,8 @@ on:
     secrets:
       GUGANANA_BUILD_KEY:
         required: false
+      UNREALCODEBUILDER_ENGINE_ENDPOINT:
+        required: false
     inputs:
       projectArtifactName:
         required: true
