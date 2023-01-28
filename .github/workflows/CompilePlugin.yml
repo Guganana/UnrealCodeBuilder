@@ -81,7 +81,7 @@ jobs:
 
       - uses: guganana/UnrealCodeBuilder@main
         with:
-          enginePath: ${{ secrets.UNREALCODEBUILDER_ENGINE_ENDPOINT }}
+          enginePath: "${{ secrets.UNREALCODEBUILDER_ENGINE_ENDPOINT }}"
           unrealVersion: ${{ matrix.UEVersion }}
           enginePathIsDownload: true
           cacheExportId: ${{ env.cacheKey_compiled }}
