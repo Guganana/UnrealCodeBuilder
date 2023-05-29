@@ -119,15 +119,5 @@ jobs:
           name: "${{ env.releaseName }}-Marketplace"
           path: ${{ env.compiledDir }}
           retention-days: ${{ inputs.artifactRetentionTime }}
-          
-  Cleanup:
-    name: Cleanup
-    if: ${{ always() }}
-    runs-on : ubuntu-latest
-    needs: ['builder']
-    steps:
-
-      - uses: geekyeggo/delete-artifact@dc8092f14c4245ef6a3501b1669b171c12899167
-        with:
-            name: "${{ inputs.projectArtifactName }}"
+        
   
