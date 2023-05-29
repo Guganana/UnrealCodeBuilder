@@ -1,6 +1,6 @@
 param
 (
-    [bool]$KeepGit = $false
+    [switch]$KeepGit = $false
 )
 
 Get-childitem -recurse -filter ".vs*" -Force | Remove-Item -Force -Recurse -Verbose
