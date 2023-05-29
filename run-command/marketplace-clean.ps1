@@ -11,4 +11,4 @@ if(!$KeepGit)
 
 Remove-Item -Recurse -Force ./Intermediate -ErrorAction Ignore
 Remove-Item -Recurse -Force ./Binaries -ErrorAction Ignore
-Remove-Item -Recurse -Force ./metadata -ErrorAction Ignore
+Remove-Item -Recurse -Force ./.metadata -ErrorAction Ignore
