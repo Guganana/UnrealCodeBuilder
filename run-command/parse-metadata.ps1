@@ -10,9 +10,9 @@ SetEnvVar "releaseDate" "$(Get-Date -Format "yyyy, M, d")"
 SetEnvVar "UEVersion" "$UEVersion"
 
 
-if (Test-Path -Path ./.metadata) 
+if (Test-Path -Path ./.codebuilder/metadata) 
 {
-	Get-ChildItem -Path ./.metadata | ForEach-Object {
+	Get-ChildItem -Path ./.codebuilder/metadata | ForEach-Object {
 		$varname = $_.Name
 		$value = Get-Content $_.Fullname -TotalCount 1
 
@@ -24,7 +24,7 @@ if (Test-Path -Path ./.metadata)
 }
 else
 {
-	Write-Warning "Unable to find .metadata folder in root directory of project"
+	Write-Warning "Unable to find .codebuilder/metadata folder in root directory of project"
 	Write-Warning "Will use default release version and format..."
 	
 	SetEnvVar "releaseName" "Placeholder"
