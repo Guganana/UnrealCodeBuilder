@@ -15,5 +15,9 @@ foreach ($Child in $UPlugin)
 {
     (Get-Content $Child.FullName) -Replace 'DEV_VERSION_NAME', $env:releaseVersion | Set-Content $Child.FullName
     (Get-Content $Child.FullName) -Replace '123456789', $VersionNumber | Set-Content $Child.FullName
-    (Get-Content $Child.FullName) -Replace 'ENGINE_VERSION', "$env:UEVersion" | Set-Content $Child.FullName
+
+    if("$env:UEVersion" -ne "none")
+    {
+        (Get-Content $Child.FullName) -Replace 'ENGINE_VERSION', "$env:UEVersion" | Set-Content $Child.FullName
+    }
 }
