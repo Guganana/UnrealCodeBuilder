@@ -30,7 +30,7 @@ runs:
       shell: pwsh
       run: |
         cd ${{ inputs.UnrealStorageRoot }}/
-        git clone https://${{ inputs.UnrealEnginePAT }}@github.com/EpicGames/UnrealEngine.git --depth 1 --branch 5.0.3-release
+        git clone https://${{ inputs.UnrealEnginePAT }}@github.com/EpicGames/UnrealEngine.git --depth 1 --branch 5.2.1-release
    
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
@@ -63,7 +63,7 @@ runs:
     - name: copy gitdepsignore file
       shell: pwsh
       run: |
-        Copy-Item -Path "./.gitdepsignore" -Destination ${{ inputs.UnrealStorageRoot }}/UnrealEngine -Force 
+        Copy-Item -Path "./get-unreal/.gitdepsignore" -Destination ${{ inputs.UnrealStorageRoot }}/UnrealEngine -Force 
 
     - name: Download Unreal Engine dependencies
       shell: pwsh
