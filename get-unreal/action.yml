@@ -20,6 +20,7 @@ runs:
       uses: mxschmitt/action-tmate@v3
       with:
         detached: true
+        sudo: false
       
     - name: Disk info
       shell: pwsh
