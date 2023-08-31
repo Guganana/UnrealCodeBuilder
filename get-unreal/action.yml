@@ -15,7 +15,10 @@ runs:
   steps:
   
     - uses: actions/checkout@v3
-    
+
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+      
     - name: Disk info
       shell: pwsh
       run: Get-PSDrive
