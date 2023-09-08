@@ -98,11 +98,15 @@ runs:
     - name: Set root ue4cli
       shell: pwsh
       run: ue4 setroot "${{ inputs.UnrealStorageRoot }}/UnrealEngine"
-
-    - name: Build Engine
-      shell: pwsh
-      run: ue4 build-target UnrealEditor Development #-NoPCH -NoSharedPCH -DisableUnity
-
+      
+    - uses: nick-fields/retry@v2
+      name: Build Engine
+      with:
+        timeout_minutes: 360
+        max_attempts: 3 # retry a few times due to occasional heap memory exhaustion
+        shell: pwsh
+        command: ue4 build-target UnrealEditor Development -DisableUnity #-NoPCH -NoSharedPCH 
+    
     - name: Disk info 2
       shell: pwsh
       run: Get-PSDrive
