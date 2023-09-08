@@ -16,11 +16,11 @@ runs:
   
     - uses: actions/checkout@v3
 
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v3
-      with:
-        detached: true
-        sudo: false
+   # - name: Setup tmate session
+   #   uses: mxschmitt/action-tmate@v3
+   #   with:
+   #     detached: true
+   #     sudo: false
       
     - name: Disk info
       shell: pwsh
@@ -102,3 +102,7 @@ runs:
     - name: Build Engine
       shell: pwsh
       run: ue4 build-target UnrealEditor Development #-NoPCH -NoSharedPCH -DisableUnity
+
+    - name: Disk info 2
+      shell: pwsh
+      run: Get-PSDrive
