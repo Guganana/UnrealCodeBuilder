@@ -105,7 +105,7 @@ runs:
         timeout_minutes: 360
         max_attempts: 3 # retry a few times due to occasional heap memory exhaustion
         shell: pwsh
-        command: ue4 build-target UnrealEditor Development -DisableUnity #-NoPCH -NoSharedPCH 
+        command: ue4 build-target UnrealEditor Development -NoPCH -NoSharedPCH 
     
     - name: Disk info 2
       shell: pwsh
