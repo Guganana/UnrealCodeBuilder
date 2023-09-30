@@ -97,11 +97,11 @@ runs:
       shell: pwsh
       run: ${{ github.action_path }}/ThirdParty/7Zip/7za.exe x "${{ github.action_path }}/Engine.7z" -o${{ github.action_path }}/Engine
 
+      # Unreal 5.3 fails compilation with the default dotnet version
     - name: Setup dotnet versions
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: | 
-          5.0 # Unreal 5.3 fails compilation with the default dotnet version
+        dotnet-version: 5.0.x
           
     - uses: actions/setup-python@v4
       with:
