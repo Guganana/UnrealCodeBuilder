@@ -98,11 +98,12 @@ runs:
       run: ${{ github.action_path }}/ThirdParty/7Zip/7za.exe x "${{ github.action_path }}/Engine.7z" -o${{ github.action_path }}/Engine
 
       # Unreal 5.3 fails compilation with the default dotnet version
-    - name: Setup dotnet versions
-      uses: actions/setup-dotnet@v3
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
       with:
-        dotnet-version: 6.0.302
+        vs-version: '[17.7,17.8)'
           
+              
     - uses: actions/setup-python@v4
       with:
         python-version: '3.x'
