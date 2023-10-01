@@ -96,13 +96,6 @@ runs:
     - name: Extract Unreal Engine image
       shell: pwsh
       run: ${{ github.action_path }}/ThirdParty/7Zip/7za.exe x "${{ github.action_path }}/Engine.7z" -o${{ github.action_path }}/Engine
-
-      # Unreal 5.3 fails compilation with the default dotnet version
-    - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v1.1
-      with:
-        vs-version: '[17.7,17.8)'
-          
               
     - uses: actions/setup-python@v4
       with:
