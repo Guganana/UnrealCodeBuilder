@@ -47,7 +47,11 @@ jobs:
         with:
           name: "${{ inputs.projectArtifactName }}"
           path: ${{ env.projectDir }}
-          
+
+      - name: debug
+        shell: pwsh
+        run: dir ${{ env.projectDir }}
+        
       - uses: guganana/UnrealCodeBuilder/run-command@main
         with:
           projectPath: ${{ env.projectDir }}
