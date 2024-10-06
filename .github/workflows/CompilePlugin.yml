@@ -31,8 +31,8 @@ on:
         default: 1
  
 env:
-  projectDir: /source
-  compiledDir: /compiled
+  projectDir: D:/source
+  compiledDir: D:/compiled
       
 jobs:
 
